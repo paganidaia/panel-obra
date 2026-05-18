@@ -728,17 +728,106 @@ function initViewer(canvas,url){
     mesh=new THREE.Mesh(geo,mat);
     scene.add(mesh);
     camera.lookAt(0,0,0);
-    // Controles mouse
-    function onDown(e){drag=true;mode=e.shiftKey?'pan':'rotate';const p=ePos(e);last={x:p.x,y:p.y}}
-    function onMove(e){if(!drag)return;const p=ePos(e);const dx=p.x-last.x,dy=p.y-last.y;if(mode==='rotate'){rotTarget.y+=dx*0.5;rotTarget.x+=dy*0.5;}else{panTarget.x-=dx*0.003;panTarget.y+=dy*0.003;}last={x:p.x,y:p.y};e.preventDefault()}
-    function onUp(){drag=false}
-    function onWheel(e){zoomTarget=Math.max(0.2,Math.min(5,zoomTarget-e.deltaY*0.001));e.preventDefault()}
-    // Touch
-    let touches=[];
-    function onTStart(e){touches=[...e.touches];if(touches.length===1){drag=true;mode='rotate';last={x:touches[0].clientX,y:touches[0].clientY}}}
-    function onTMove(e){e.preventDefault();if(e.touches.length===1&&drag){const dx=e.touches[0].clientX-last.x,dy=e.touches[0].clientY-last.y;rotTarget.y+=dx*0.4;rotTarget.x+=dy*0.4;last={x:e.touches[0].clientX,y:e.touches[0].clientY}}else if(e.touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomTarget=Math.max(0.2,Math.min(5,zoomTarget*(d1/d0)));touches=[...e.touches]}}
-    function onTEnd(){drag=false}
+    // ── Controles mejorados ───────────────────────────────────
+    let touches=[], lastPinchDist=0, velX=0, velY=0, lastTime=0;
+    
     function ePos(e){return{x:e.clientX??e.touches[0].clientX,y:e.clientY??e.touches[0].clientY}}
+    
+    // Mouse
+    function onDown(e){
+      drag=true;
+      mode=e.shiftKey||e.button===2?'pan':'rotate';
+      const p=ePos(e);last={x:p.x,y:p.y};
+      velX=0;velY=0;lastTime=Date.now();
+    }
+    function onMove(e){
+      if(!drag)return;
+      const p=ePos(e);
+      const dx=p.x-last.x, dy=p.y-last.y;
+      const now=Date.now(), dt=Math.max(1,now-lastTime);
+      if(mode==='rotate'){
+        rotTarget.y+=dx*0.35;
+        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+dy*0.35));
+        velX=dx/dt*16; velY=dy/dt*16; // momentum
+      } else {
+        panTarget.x-=dx*0.004*zoom;
+        panTarget.y+=dy*0.004*zoom;
+      }
+      last={x:p.x,y:p.y}; lastTime=now;
+      e.preventDefault();
+    }
+    function onUp(){
+      drag=false;
+      // Apply momentum on release
+      if(mode==='rotate'){
+        rotTarget.y+=velX*3;
+        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+velY*3));
+      }
+      velX=0; velY=0;
+    }
+    // Scroll wheel — scroll up = zoom in (natural)
+    function onWheel(e){
+      zoomTarget=Math.max(0.15,Math.min(6,zoomTarget+e.deltaY*0.001));
+      e.preventDefault();
+    }
+    
+    // Touch — 1 finger=rotate, 2 fingers=pinch zoom + pan
+    function onTStart(e){
+      touches=[...e.touches];
+      velX=0; velY=0;
+      if(e.touches.length===1){
+        drag=true; mode='rotate';
+        last={x:e.touches[0].clientX,y:e.touches[0].clientY};
+        lastTime=Date.now();
+      } else if(e.touches.length===2){
+        drag=false;
+        lastPinchDist=Math.hypot(
+          e.touches[0].clientX-e.touches[1].clientX,
+          e.touches[0].clientY-e.touches[1].clientY
+        );
+      }
+    }
+    function onTMove(e){
+      e.preventDefault();
+      if(e.touches.length===1&&drag){
+        const dx=e.touches[0].clientX-last.x;
+        const dy=e.touches[0].clientY-last.y;
+        const now=Date.now(), dt=Math.max(1,now-lastTime);
+        rotTarget.y+=dx*0.4;
+        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+dy*0.4));
+        velX=dx/dt*16; velY=dy/dt*16;
+        last={x:e.touches[0].clientX,y:e.touches[0].clientY};
+        lastTime=now;
+      } else if(e.touches.length===2){
+        // Pinch zoom
+        const dist=Math.hypot(
+          e.touches[0].clientX-e.touches[1].clientX,
+          e.touches[0].clientY-e.touches[1].clientY
+        );
+        if(lastPinchDist>0){
+          const scale=dist/lastPinchDist;
+          zoomTarget=Math.max(0.15,Math.min(6,zoomTarget/scale));
+        }
+        lastPinchDist=dist;
+        // Two-finger pan
+        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
+        const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
+        const pmx=(touches[0].clientX+touches[1].clientX)/2;
+        const pmy=(touches[0].clientY+touches[1].clientY)/2;
+        panTarget.x-=(mx-pmx)*0.006*zoom;
+        panTarget.y+=(my-pmy)*0.006*zoom;
+        touches=[...e.touches];
+      }
+    }
+    function onTEnd(e){
+      drag=false;
+      lastPinchDist=0;
+      touches=[...e.touches];
+      // Momentum on lift
+      rotTarget.y+=velX*4;
+      rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+velY*4));
+      velX=0; velY=0;
+    }
     canvas.addEventListener('mousedown',onDown);
     canvas.addEventListener('mousemove',onMove);
     canvas.addEventListener('mouseup',onUp);
