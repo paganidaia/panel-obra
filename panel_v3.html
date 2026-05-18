@@ -255,13 +255,6 @@ tbody tr:hover{background:rgba(10,10,10,.025)}
   .bii{font-size:17px;line-height:1}
   .bil{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--k4)}
   .bi.active .bil{color:var(--k);font-weight:800}
-  .kr{grid-template-columns:1fr 1fr}
-  .kv{font-size:18px}
-  table{font-size:11px}
-  .cv{background:#ffffff !important}
-  button{color:inherit;-webkit-tap-highlight-color:transparent}
-  .bi,.bi *{color:var(--k4)}
-  .bi.active,.bi.active *{color:var(--k)}
 }
 @media(min-width:641px) and (max-width:900px){
   .sb{width:200px;min-width:200px}
@@ -408,64 +401,40 @@ tbody tr:hover{background:rgba(10,10,10,.025)}
       <!-- Imágenes — slideshow -->
       <div class="card">
         <div class="ch">Renders y Fotografías</div>
-
-        <!-- Visor principal -->
-        <div style="position:relative;background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center" id="img-viewer">
-          <!-- Placeholder -->
-          <div id="img-ph" style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.35">
+        <div id="img-viewer" style="position:relative;background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center">
+          <div id="img-ph" style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.3">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="3" y="7" width="34" height="26" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="14" cy="17" r="3" stroke="currentColor" stroke-width="2"/><path d="M3 28l9-8 7 7 5-5 13 9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-            <span style="font-size:11px;font-weight:700;color:var(--k3)">Sin imágenes</span>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Sin imágenes cargadas</span>
           </div>
-          <!-- Image display -->
           <img id="img-slide" src="" style="display:none;width:100%;height:100%;object-fit:contain">
-          <!-- Nav arrows -->
-          <button id="img-prev" onclick="imgPrev()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)">◀</button>
-          <button id="img-next" onclick="imgNext()" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)">▶</button>
-          <!-- Counter -->
-          <div id="img-counter" style="display:none;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.45);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.05em"></div>
+          <button id="img-prev" onclick="imgPrev()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)">◀</button>
+          <button id="img-next" onclick="imgNext()" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)">▶</button>
+          <div id="img-counter" style="display:none;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.45);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px"></div>
         </div>
-
-        <!-- Descargar + cargar -->
-        <div class="row" style="justify-content:space-between;align-items:center">
-          <a id="img-dl" href="#" download style="text-decoration:none" onclick="return imgs.length>0">
-            <button class="btn bp" id="img-dl-btn" style="opacity:.3;cursor:default">↓ Descargar</button>
-          </a>
-          <label class="btn" style="cursor:pointer">↑ Cargar imágenes
-            <input type="file" id="img-input" accept="image/*" multiple style="display:none" onchange="loadImgs(this)">
-          </label>
+        <div class="row" style="justify-content:space-between">
+          <a id="img-dl-a" href="#" download style="text-decoration:none"><button id="img-dl-btn" class="btn bp" style="opacity:.3;pointer-events:none">↓ Descargar</button></a>
+          <label class="btn" style="cursor:pointer">↑ Cargar<input type="file" id="img-input" accept="image/*" multiple style="display:none" onchange="loadImgsLocal(this)"></label>
         </div>
       </div>
     </div>
 
     <div class="sec" id="a5">
       <div class="sh"><span class="sn">05/</span><h2 class="st">Planos</h2></div>
-
-      <!-- Planos — visor + lista -->
       <div class="card">
         <div class="ch">Planos del Proyecto</div>
-
-        <!-- Visor PDF -->
         <div style="background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:12px">
-          <div id="plano-ph" style="height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:.4">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="22" height="30" rx="2" stroke="currentColor" stroke-width="2"/><path d="M26 2v8h8" stroke="currentColor" stroke-width="2"/><line x1="9" y1="13" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="17" x2="19" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <span style="font-size:11px;font-weight:700;color:var(--k3)">Seleccioná un plano de la lista</span>
+          <div id="plano-ph" style="height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:.35">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="22" height="30" rx="2" stroke="currentColor" stroke-width="2"/><line x1="9" y1="13" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="17" x2="19" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Seleccioná un plano</span>
           </div>
           <iframe id="plano-viewer" src="" style="display:none;width:100%;height:500px;border:none" allowfullscreen></iframe>
         </div>
-
-        <!-- Lista de planos -->
-        <div id="planos-dl" style="margin-bottom:10px;border:1px solid var(--l);border-radius:6px;overflow:hidden">
-          <!-- se carga desde Drive -->
-        </div>
-
+        <div id="planos-list" style="border:1px solid var(--l);border-radius:6px;overflow:hidden;margin-bottom:10px"></div>
         <div class="row">
-          <label class="btn bp" style="cursor:pointer">↑ Cargar plano
-            <input type="file" accept=".pdf" multiple style="display:none" onchange="loadPlanosLocal(this)">
-          </label>
+          <label class="btn bp" style="cursor:pointer">↑ Cargar plano<input type="file" accept=".pdf" multiple style="display:none" onchange="loadPlanosLocal(this)"></label>
         </div>
       </div>
-
-    <div class="sec" id="a6">
+    class="sec" id="a6">
       <div class="sh"><span class="sn">06/</span><h2 class="st">Presupuesto</h2></div>
       <div class="kr">
         <div class="kp"><div class="kl">Total s/IVA</div><div class="kv">$103M</div><div class="ks">Pesos arg.</div></div>
@@ -684,6 +653,7 @@ function aGR(){GR.push({l:'Nueva Actividad',p:[0,0,0,0,0,0,0,0],d:[0,0,0,0,0,0,0
 document.addEventListener('DOMContentLoaded',()=>{rGB();rCF();rCal();rTH();rGI()});
 
 // ── VISOR 3D ──
+let v3dCtx=null;
 function load3D(input){
   const file=input.files[0];if(!file)return;
   const url=URL.createObjectURL(file);
@@ -734,106 +704,17 @@ function initViewer(canvas,url){
     mesh=new THREE.Mesh(geo,mat);
     scene.add(mesh);
     camera.lookAt(0,0,0);
-    // ── Controles mejorados ───────────────────────────────────
-    let touches=[], lastPinchDist=0, velX=0, velY=0, lastTime=0;
-    
+    // Controles mouse
+    function onDown(e){drag=true;mode=e.shiftKey?'pan':'rotate';const p=ePos(e);last={x:p.x,y:p.y}}
+    function onMove(e){if(!drag)return;const p=ePos(e);const dx=p.x-last.x,dy=p.y-last.y;if(mode==='rotate'){rotTarget.y+=dx*0.5;rotTarget.x+=dy*0.5;}else{panTarget.x-=dx*0.003;panTarget.y+=dy*0.003;}last={x:p.x,y:p.y};e.preventDefault()}
+    function onUp(){drag=false}
+    function onWheel(e){zoomTarget=Math.max(0.2,Math.min(5,zoomTarget-e.deltaY*0.001));e.preventDefault()}
+    // Touch
+    let touches=[];
+    function onTStart(e){touches=[...e.touches];if(touches.length===1){drag=true;mode='rotate';last={x:touches[0].clientX,y:touches[0].clientY}}}
+    function onTMove(e){e.preventDefault();if(e.touches.length===1&&drag){const dx=e.touches[0].clientX-last.x,dy=e.touches[0].clientY-last.y;rotTarget.y+=dx*0.4;rotTarget.x+=dy*0.4;last={x:e.touches[0].clientX,y:e.touches[0].clientY}}else if(e.touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomTarget=Math.max(0.2,Math.min(5,zoomTarget*(d1/d0)));touches=[...e.touches]}}
+    function onTEnd(){drag=false}
     function ePos(e){return{x:e.clientX??e.touches[0].clientX,y:e.clientY??e.touches[0].clientY}}
-    
-    // Mouse
-    function onDown(e){
-      drag=true;
-      mode=e.shiftKey||e.button===2?'pan':'rotate';
-      const p=ePos(e);last={x:p.x,y:p.y};
-      velX=0;velY=0;lastTime=Date.now();
-    }
-    function onMove(e){
-      if(!drag)return;
-      const p=ePos(e);
-      const dx=p.x-last.x, dy=p.y-last.y;
-      const now=Date.now(), dt=Math.max(1,now-lastTime);
-      if(mode==='rotate'){
-        rotTarget.y+=dx*0.35;
-        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+dy*0.35));
-        velX=dx/dt*16; velY=dy/dt*16; // momentum
-      } else {
-        panTarget.x-=dx*0.004*zoom;
-        panTarget.y+=dy*0.004*zoom;
-      }
-      last={x:p.x,y:p.y}; lastTime=now;
-      e.preventDefault();
-    }
-    function onUp(){
-      drag=false;
-      // Apply momentum on release
-      if(mode==='rotate'){
-        rotTarget.y+=velX*3;
-        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+velY*3));
-      }
-      velX=0; velY=0;
-    }
-    // Scroll wheel — scroll up = zoom in (natural)
-    function onWheel(e){
-      zoomTarget=Math.max(0.15,Math.min(6,zoomTarget-e.deltaY*0.001));
-      e.preventDefault();
-    }
-    
-    // Touch — 1 finger=rotate, 2 fingers=pinch zoom + pan
-    function onTStart(e){
-      touches=[...e.touches];
-      velX=0; velY=0;
-      if(e.touches.length===1){
-        drag=true; mode='rotate';
-        last={x:e.touches[0].clientX,y:e.touches[0].clientY};
-        lastTime=Date.now();
-      } else if(e.touches.length===2){
-        drag=false;
-        lastPinchDist=Math.hypot(
-          e.touches[0].clientX-e.touches[1].clientX,
-          e.touches[0].clientY-e.touches[1].clientY
-        );
-      }
-    }
-    function onTMove(e){
-      e.preventDefault();
-      if(e.touches.length===1&&drag){
-        const dx=e.touches[0].clientX-last.x;
-        const dy=e.touches[0].clientY-last.y;
-        const now=Date.now(), dt=Math.max(1,now-lastTime);
-        rotTarget.y+=dx*0.4;
-        rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+dy*0.4));
-        velX=dx/dt*16; velY=dy/dt*16;
-        last={x:e.touches[0].clientX,y:e.touches[0].clientY};
-        lastTime=now;
-      } else if(e.touches.length===2){
-        // Pinch zoom
-        const dist=Math.hypot(
-          e.touches[0].clientX-e.touches[1].clientX,
-          e.touches[0].clientY-e.touches[1].clientY
-        );
-        if(lastPinchDist>0){
-          const scale=dist/lastPinchDist;
-          zoomTarget=Math.max(0.15,Math.min(6,zoomTarget*scale));
-        }
-        lastPinchDist=dist;
-        // Two-finger pan
-        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
-        const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
-        const pmx=(touches[0].clientX+touches[1].clientX)/2;
-        const pmy=(touches[0].clientY+touches[1].clientY)/2;
-        panTarget.x-=(mx-pmx)*0.006*zoom;
-        panTarget.y+=(my-pmy)*0.006*zoom;
-        touches=[...e.touches];
-      }
-    }
-    function onTEnd(e){
-      drag=false;
-      lastPinchDist=0;
-      touches=[...e.touches];
-      // Momentum on lift
-      rotTarget.y+=velX*4;
-      rotTarget.x=Math.max(-85,Math.min(85,rotTarget.x+velY*4));
-      velX=0; velY=0;
-    }
     canvas.addEventListener('mousedown',onDown);
     canvas.addEventListener('mousemove',onMove);
     canvas.addEventListener('mouseup',onUp);
@@ -861,176 +742,152 @@ function initViewer(canvas,url){
   };
   if(!document.querySelector('script[src*="three"]'))document.head.appendChild(script);
   else script.onload();
+  .kr{grid-template-columns:1fr 1fr}
+  button{color:inherit;-webkit-tap-highlight-color:transparent}
 }
 function reset3D(){if(v3dCtx){v3dCtx.rotTarget.x=0;v3dCtx.rotTarget.y=0;v3dCtx.zoomTarget=1;v3dCtx.panTarget.x=0;v3dCtx.panTarget.y=0;}}
 
-const CONFIG = {
-  sheetCSV    : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=csv',
-  driveApiUrl : 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec',
-  modelGLB    : 'https://paganidaia.github.io/panel-obra/modelo.glb',
-  presupuestoUrl : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=xlsx',
-};
+// ══════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════
+const SHEET_CSV  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=csv';
+const DRIVE_API  = 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec';
+const GITHUB_API = 'https://api.github.com/repos/paganidaia/panel-obra/contents/';
 
-// ── CSV parser ────────────────────────────────────────────────
-function parseCSV(text){
-  return text.split('\n').map(row=>{
-    const cells=[]; let cur=''; let inQ=false;
-    for(let i=0;i<row.length;i++){
-      const ch=row[i];
-      if(ch==='"'){inQ=!inQ;}
-      else if(ch===','&&!inQ){cells.push(cur.trim());cur='';}
-      else cur+=ch;
-    }
-    cells.push(cur.trim());
-    return cells;
-  });
-}
+// ── CSV helpers ───────────────────────────────────────
+function parseCSV(t){return t.split('\n').map(r=>{const c=[],cv='',q=false;for(let i=0;i<r.length;i++){if(r[i]==='"')q?q=false:q=true;else if(r[i]===','&&!q){c.push(cv.trim());cv='';}else cv+=r[i];}c.push(cv.trim());return c;});}
 function csvCell(rows,r,c){const row=rows[r-1];return row&&row[c-1]?row[c-1].replace(/^"|"$/g,'').trim():'';}
 function setTxt(id,val){const el=document.getElementById(id);if(el&&val)el.textContent=val;}
 
-// ── Sheet data loader ─────────────────────────────────────────
+// ── Sheet loader ──────────────────────────────────────
 function loadSheetData(){
   const btn=document.getElementById('refresh-btn');
   const ind=document.getElementById('sheet-status');
   if(btn)btn.style.opacity='0.5';
-  if(ind)ind.textContent='Actualizando...';
-  fetch(CONFIG.sheetCSV)
-    .then(r=>{if(!r.ok)throw new Error(r.status);return r.text();})
-    .then(csv=>{
-      const rows=parseCSV(csv);
-      const d={
-        proyecto   :csvCell(rows,5,3),  cliente    :csvCell(rows,6,3),
-        cuit       :csvCell(rows,7,3),  direccion  :csvCell(rows,8,3),
-        localidad  :csvCell(rows,9,3),  superficie :csvCell(rows,10,3),
-        categoria  :csvCell(rows,11,3), nLicit     :csvCell(rows,12,3),
-        fechaApert :csvCell(rows,13,3), profesional:csvCell(rows,14,3),
-        matricula  :csvCell(rows,15,3),
-      };
-      setTxt('cv-proyecto', d.proyecto);
-      setTxt('cv-tipo',     d.categoria);
-      setTxt('cv-ubicacion',d.direccion+(d.localidad?' · '+d.localidad:''));
-      setTxt('cv-cliente-v',d.cliente);
-      setTxt('cv-rep-v',    d.cuit||'—');
-      setTxt('cv-prof-v',   d.profesional);
-      setTxt('cv-mat-v',    d.matricula);
-      setTxt('cv-sup-v',    d.superficie?d.superficie+' m²':'—');
-      setTxt('cv-badge',    d.nLicit);
-      setTxt('cv-fecha-v',  d.fechaApert);
-      if(btn)btn.style.opacity='1';
-      if(ind){ind.textContent='✓ OK';setTimeout(()=>ind.textContent='Actualizar',2500);}
-    })
-    .catch(err=>{
-      console.warn('Sheet:',err);
-      if(btn)btn.style.opacity='1';
-      if(ind)ind.textContent='⚠ Error';
-    });
+  fetch(SHEET_CSV).then(r=>r.text()).then(csv=>{
+    const rows=parseCSV(csv);
+    setTxt('cv-proyecto',csvCell(rows,5,3));
+    setTxt('cv-tipo',    csvCell(rows,11,3));
+    setTxt('cv-ubicacion',csvCell(rows,8,3)+(csvCell(rows,9,3)?' · '+csvCell(rows,9,3):''));
+    setTxt('cv-cliente-v',csvCell(rows,6,3));
+    setTxt('cv-rep-v',   csvCell(rows,7,3)||'—');
+    setTxt('cv-prof-v',  csvCell(rows,14,3));
+    setTxt('cv-mat-v',   csvCell(rows,15,3));
+    setTxt('cv-sup-v',   csvCell(rows,10,3)?csvCell(rows,10,3)+' m²':'—');
+    setTxt('cv-badge',   csvCell(rows,12,3));
+    setTxt('cv-fecha-v', csvCell(rows,13,3));
+    if(btn)btn.style.opacity='1';
+    if(ind){ind.textContent='✓ OK';setTimeout(()=>ind.textContent='Actualizar',2500);}
+  }).catch(()=>{if(btn)btn.style.opacity='1';});
 }
 
-// ── Drive file loader ─────────────────────────────────────────
+// ── Drive loader ──────────────────────────────────────
 function loadDriveFiles(){
-  fetch(CONFIG.driveApiUrl)
-    .then(r=>r.json())
-    .then(data=>{
-      if(data.images&&data.images.length) loadDriveImages(data.images);
-      if(data.planos&&data.planos.length) loadDrivePlanos(data.planos);
-    })
-    .catch(err=>console.warn('Drive:',err));
+  fetch(DRIVE_API).then(r=>r.json()).then(data=>{
+    if(data.images&&data.images.length) loadDriveImages(data.images);
+    if(data.planos&&data.planos.length) loadDrivePlanos(data.planos);
+  }).catch(err=>console.warn('Drive:',err));
 }
 
-// ── Image gallery ─────────────────────────────────────────────
-let imgs=[]; let lboxIdx=0;
-
-
-
-
-
-
-
-
-
-// ── Planos loader ─────────────────────────────────────────────
-
-
-
-// ── 3D viewer ─────────────────────────────────────────────────
-let v3dCtx=null;
-function load3D(input){
-  if(!input.files[0])return;
-  const url=URL.createObjectURL(input.files[0]);
-  const canvas=document.getElementById('v3d-canvas');
-  if(canvas){canvas.style.display='block';document.querySelector('.v3d-ph')&&(document.querySelector('.v3d-ph').style.display='none');initViewer(canvas,url);}
-}
+// ── GitHub 3D model ───────────────────────────────────
 function loadGitHubModel(){
-  fetch('https://api.github.com/repos/paganidaia/panel-obra/contents/')
-    .then(r=>r.json())
-    .then(files=>{
-      const glb = files.find(f=>f.name.toLowerCase().endsWith('.glb'));
-      if(!glb){ console.log('No GLB found'); return; }
-      console.log('Found GLB:', glb.name);
-      // Use existing load3D logic with correct element IDs
-      document.getElementById('v3d-empty').style.display='none';
-      const canvas=document.getElementById('v3d');
-      canvas.style.display='block';
-      const ctrl=document.getElementById('v3d-controls');
-      if(ctrl)ctrl.style.display='flex';
-      const hint=document.getElementById('v3d-hint');
-      if(hint){hint.style.display='flex';hint.textContent='Cargando modelo...';}
-      setTimeout(()=>initViewer(canvas, glb.download_url), 100);
-    })
-    .catch(err=>console.warn('GitHub API error:',err));
+  fetch(GITHUB_API).then(r=>r.json()).then(files=>{
+    const glb=files.find(f=>f.name.toLowerCase().endsWith('.glb'));
+    if(!glb)return;
+    document.getElementById('v3d-empty').style.display='none';
+    const canvas=document.getElementById('v3d');
+    canvas.style.display='block';
+    const ctrl=document.getElementById('v3d-controls');
+    if(ctrl)ctrl.style.display='flex';
+    setTimeout(()=>initViewer(canvas,glb.download_url),100);
+  }).catch(err=>console.warn('GitHub:',err));
 }
-function reset3D(){if(v3dCtx&&v3dCtx.reset)v3dCtx.reset();}
-function initViewer(canvas,url){
-  const loadScript=(src,cb)=>{const s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s);};
-  loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',()=>{
-    loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',()=>{
-      _initScene(canvas,url);
-    });
+
+// ── Image slideshow ───────────────────────────────────
+let slideImgs=[], slideIdx=0;
+function imgShow(idx){
+  if(!slideImgs.length)return;
+  slideIdx=(idx+slideImgs.length)%slideImgs.length;
+  const im=slideImgs[slideIdx];
+  const slide=document.getElementById('img-slide');
+  const ph=document.getElementById('img-ph');
+  const prev=document.getElementById('img-prev');
+  const next=document.getElementById('img-next');
+  const cnt=document.getElementById('img-counter');
+  const dlBtn=document.getElementById('img-dl-btn');
+  const dlA=document.getElementById('img-dl-a');
+  if(slide){slide.src=im.url;slide.style.display='block';}
+  if(ph)ph.style.display='none';
+  if(prev)prev.style.display='flex';
+  if(next)next.style.display='flex';
+  if(cnt){cnt.style.display='block';cnt.textContent=(slideIdx+1)+' / '+slideImgs.length;}
+  if(dlBtn){dlBtn.style.opacity='1';dlBtn.style.pointerEvents='auto';}
+  if(dlA){dlA.href=im.downloadUrl||im.url;dlA.download=im.name;}
+}
+function imgNext(){imgShow(slideIdx+1);}
+function imgPrev(){imgShow(slideIdx-1);}
+function loadImgsLocal(input){
+  [...input.files].forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const url=URL.createObjectURL(f);
+    slideImgs.push({url,name:f.name,downloadUrl:url});
+  });
+  if(slideImgs.length)imgShow(slideImgs.length-1);
+}
+function loadDriveImages(images){
+  images.forEach(img=>slideImgs.push({url:img.thumbUrl||img.viewUrl,name:img.name,downloadUrl:img.downloadUrl}));
+  if(slideImgs.length)imgShow(0);
+}
+// Swipe
+(function(){
+  let sx=0;
+  const v=document.getElementById('img-viewer');
+  if(!v)return;
+  v.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  v.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){dx<0?imgNext():imgPrev();}},{passive:true});
+})();
+
+// ── Planos viewer + list ──────────────────────────────
+let planosData=[];
+function selectPlano(idx){
+  const pl=planosData[idx];if(!pl)return;
+  const viewer=document.getElementById('plano-viewer');
+  const ph=document.getElementById('plano-ph');
+  if(viewer){viewer.src=pl.viewUrl;viewer.style.display='block';}
+  if(ph)ph.style.display='none';
+  document.querySelectorAll('.plano-row').forEach((el,i)=>{
+    el.style.background=i===idx?'var(--s2)':'';
+    el.querySelector('.plano-name').style.fontWeight=i===idx?'700':'400';
   });
 }
-function _initScene(canvas,url){
-  const W=canvas.parentElement.clientWidth||600,H=Math.round(W*0.56);
-  canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;
-  canvas.style.width=W+'px';canvas.style.height=H+'px';
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W,H);
-  renderer.setClearColor(0xf0f0f0,1);renderer.shadowMap.enabled=true;
-  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  const scene=new THREE.Scene();scene.background=new THREE.Color(0xf0f0f0);
-  const camera=new THREE.PerspectiveCamera(45,W/H,0.01,2000);
-  scene.add(new THREE.AmbientLight(0xffffff,0.6));
-  const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(10,20,10);sun.castShadow=true;scene.add(sun);
-  scene.add(new THREE.GridHelper(30,30,0xcccccc,0xe0e0e0));
-  let rot={x:-17,y:25},rotT={x:-17,y:25},zoom=1,zoomT=1,drag=false,last={x:0,y:0},touches=[];
-  const hint=document.getElementById('v3d-hint');
-  const loader=new THREE.GLTFLoader();
-  loader.load(url,gltf=>{
-    const model=gltf.scene;
-    const box=new THREE.Box3().setFromObject(model);
-    const size=box.getSize(new THREE.Vector3());
-    const center=box.getCenter(new THREE.Vector3());
-    const sc=4/Math.max(size.x,size.y,size.z);
-    model.scale.setScalar(sc);model.position.sub(center.multiplyScalar(sc));model.position.y+=size.y*sc/2;
-    model.traverse(c=>{if(c.isMesh){c.castShadow=true;c.receiveShadow=true;}});
-    scene.add(model);
-    const d=4/Math.max(size.x,size.y,size.z)*Math.max(size.x,size.y,size.z)*1.5;
-    camera.position.set(d,d*0.7,d);camera.lookAt(0,0,0);
-    if(hint){hint.textContent='Arrastrá para rotar · Pinzá para zoom';setTimeout(()=>hint.style.display='none',3000);}
-  },p=>{if(hint)hint.textContent='Cargando '+Math.round(p.loaded/p.total*100)+'%';},()=>{if(hint){hint.textContent='Cargá un modelo GLB';hint.style.display='block';}} );
-  canvas.addEventListener('mousedown',e=>{drag=true;last={x:e.clientX,y:e.clientY};});
-  canvas.addEventListener('mousemove',e=>{if(!drag)return;rotT.y+=(e.clientX-last.x)*.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+(e.clientY-last.y)*.35));last={x:e.clientX,y:e.clientY};e.preventDefault();},{passive:false});
-  canvas.addEventListener('mouseup',()=>drag=false);
-  canvas.addEventListener('wheel',e=>{zoomT=Math.max(.15,Math.min(6,zoomT-e.deltaY*.001));e.preventDefault();},{passive:false});
-  canvas.addEventListener('touchstart',e=>{touches=[...e.touches];if(e.touches.length===1){drag=true;last={x:e.touches[0].clientX,y:e.touches[0].clientY};}}  ,{passive:true});
-  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(e.touches.length===1&&drag){rotT.y+=(e.touches[0].clientX-last.x)*.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+(e.touches[0].clientY-last.y)*.35));last={x:e.touches[0].clientX,y:e.touches[0].clientY};}else if(e.touches.length===2&&touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY),d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomT=Math.max(.15,Math.min(6,zoomT*(d1/d0)));touches=[...e.touches];}},{passive:false});
-  canvas.addEventListener('touchend',()=>drag=false);
-  window.addEventListener('resize',()=>{const W2=canvas.parentElement.clientWidth,H2=Math.round(W2*.56);renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix();});
-  const p=Math.PI/180;
-  (function animate(){requestAnimationFrame(animate);rot.x+=(rotT.x-rot.x)*.1;rot.y+=(rotT.y-rot.y)*.1;zoom+=(zoomT-zoom)*.1;const r=5*zoom;camera.position.set(Math.sin(rot.y*p)*Math.cos(rot.x*p)*r,Math.sin(rot.x*p)*r+1,Math.cos(rot.y*p)*Math.cos(rot.x*p)*r);camera.lookAt(0,1,0);renderer.render(scene,camera);})();
-  v3dCtx={rotT,reset:()=>{rotT.x=-17;rotT.y=25;zoomT=1;}};
+function addPlanoRow(pl,idx){
+  const list=document.getElementById('planos-list');if(!list)return;
+  const name=pl.name.replace(/^PL-\d+-?/,'').replace(/[-_]/g,' ').replace(/\.pdf$/i,'').trim()||pl.name;
+  const row=document.createElement('div');
+  row.className='plano-row';
+  row.style.cssText='display:flex;align-items:center;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--l);gap:10px;transition:background .1s';
+  row.onclick=()=>selectPlano(idx);
+  row.innerHTML=`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.4"><rect x="1" y="1" width="9" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+    <span class="plano-name" style="flex:1;font-size:12px;color:var(--k)">${name}</span>
+    <a href="${pl.downloadUrl}" target="_blank" onclick="event.stopPropagation()" style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
+  list.appendChild(row);
+}
+function loadDrivePlanos(planos){
+  planosData=planos;
+  planos.forEach((pl,i)=>addPlanoRow(pl,i));
+  if(planos.length)selectPlano(0);
+}
+function loadPlanosLocal(input){
+  [...input.files].forEach(f=>{
+    const url=URL.createObjectURL(f);
+    const idx=planosData.length;
+    planosData.push({name:f.name,viewUrl:url,downloadUrl:url});
+    addPlanoRow(planosData[idx],idx);
+    if(idx===0)selectPlano(0);
+  });
 }
 
-// ── Init ──────────────────────────────────────────────────────
+// ── Init ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   loadSheetData();
   loadDriveFiles();
@@ -1038,134 +895,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   setInterval(loadSheetData,5*60*1000);
 });
 
-// ── Extra CSS overrides ───────────────────────────────────────
-const styleEl=document.createElement('style');
-styleEl.textContent=`
-button{color:inherit;-webkit-tap-highlight-color:transparent}
-a{color:inherit}
-.bi,.bi *{color:var(--k4)}
-.bi.active,.bi.active *{color:var(--k)}
-svg{display:inline-block}
-`;
-document.head.appendChild(styleEl);
-
-
-// ── IMAGE SLIDESHOW ───────────────────────────────────────────
-let imgs=[], imgIdx=0;
-
-function imgShow(idx){
-  if(!imgs.length) return;
-  imgIdx = (idx + imgs.length) % imgs.length;
-  const im = imgs[imgIdx];
-  const slide = document.getElementById('img-slide');
-  const ph    = document.getElementById('img-ph');
-  const prev  = document.getElementById('img-prev');
-  const next  = document.getElementById('img-next');
-  const cnt   = document.getElementById('img-counter');
-  const dlBtn = document.getElementById('img-dl-btn');
-  const dlA   = document.getElementById('img-dl');
-  if(slide){ slide.src=im.url; slide.style.display='block'; }
-  if(ph)    ph.style.display='none';
-  if(prev)  prev.style.display='flex';
-  if(next)  next.style.display='flex';
-  if(cnt){  cnt.style.display='block'; cnt.textContent=(imgIdx+1)+' / '+imgs.length+' · '+im.name; }
-  if(dlBtn){ dlBtn.style.opacity='1'; dlBtn.style.cursor='pointer'; }
-  if(dlA){  dlA.href=im.downloadUrl||im.url; dlA.download=im.name; }
-}
-function imgNext(){ imgShow(imgIdx+1); }
-function imgPrev(){ imgShow(imgIdx-1); }
-
-function loadImgs(input){
-  [...input.files].forEach(f=>{
-    if(!f.type.startsWith('image/')) return;
-    const url = URL.createObjectURL(f);
-    imgs.push({url, name:f.name, downloadUrl:url});
-  });
-  if(imgs.length) imgShow(imgs.length-1);
-}
-
-function loadDriveImages(images){
-  images.forEach(img=>{
-    if(document.querySelector(`[data-img-id="${img.id}"]`)) return;
-    imgs.push({url:img.thumbUrl||img.viewUrl, name:img.name, downloadUrl:img.downloadUrl, id:img.id});
-  });
-  if(imgs.length) imgShow(0);
-}
-
-// Touch swipe for slideshow
-(function(){
-  let startX=0;
-  const viewer = document.getElementById('img-viewer');
-  if(!viewer) return;
-  viewer.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; }, {passive:true});
-  viewer.addEventListener('touchend',   e=>{
-    const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx)>40){ dx<0 ? imgNext() : imgPrev(); }
-  }, {passive:true});
-})();
-
-// ── PLANOS VIEWER + LIST ──────────────────────────────────────
-let planosData = [];
-
-function selectPlano(idx){
-  const pl = planosData[idx];
-  if(!pl) return;
-  const viewer = document.getElementById('plano-viewer');
-  const ph     = document.getElementById('plano-ph');
-  if(viewer){ viewer.src=pl.viewUrl; viewer.style.display='block'; }
-  if(ph)     ph.style.display='none';
-  // Highlight selected row
-  document.querySelectorAll('.plano-row').forEach((el,i)=>{
-    el.style.background = i===idx ? 'var(--s2)' : '';
-    el.style.fontWeight = i===idx ? '700' : '';
-  });
-}
-
-function loadDrivePlanos(planos){
-  planosData = planos;
-  const dl = document.getElementById('planos-dl');
-  if(!dl) return;
-  dl.innerHTML = '';
-  planos.forEach((pl,i)=>{
-    const name = pl.name
-      .replace(/^PL-\d+-?/,'')
-      .replace(/[-_]/g,' ')
-      .replace(/\.pdf$/i,'')
-      .trim() || pl.name;
-    const row = document.createElement('div');
-    row.className = 'plano-row';
-    row.style.cssText = 'display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--l);transition:background .1s;gap:10px';
-    row.onclick = ()=>selectPlano(i);
-    row.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.5"><rect x="2" y="1" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="4" y1="7.5" x2="9" y2="7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="4" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
-      <span style="flex:1;font-size:12px;color:var(--k)">${name}</span>
-      <a href="${pl.downloadUrl}" target="_blank" onclick="event.stopPropagation()"
-         style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
-    dl.appendChild(row);
-  });
-  // Auto-select first
-  if(planos.length) selectPlano(0);
-}
-
-function loadPlanosLocal(input){
-  [...input.files].forEach((f,i)=>{
-    const url = URL.createObjectURL(f);
-    planosData.push({name:f.name, viewUrl:url, downloadUrl:url});
-    const dl  = document.getElementById('planos-dl');
-    const idx = planosData.length-1;
-    const row = document.createElement('div');
-    row.className='plano-row';
-    row.style.cssText='display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--l);gap:10px';
-    row.onclick=()=>selectPlano(idx);
-    row.innerHTML=`
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.5"><rect x="2" y="1" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
-      <span style="flex:1;font-size:12px;color:var(--k)">${f.name.replace('.pdf','')}</span>
-      <a href="${url}" download="${f.name}" onclick="event.stopPropagation()"
-         style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
-    dl&&dl.appendChild(row);
-    if(i===0) selectPlano(idx);
-  });
-}
+// Override iOS blue
+const _s=document.createElement('style');
+_s.textContent='button{color:inherit;-webkit-tap-highlight-color:transparent}a{color:inherit}.bi,.bi *{color:var(--k4)}.bi.active,.bi.active *{color:var(--k)}';
+document.head.appendChild(_s);
 
 </script>
 </body>
