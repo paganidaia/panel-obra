@@ -846,6 +846,8 @@ function openPDFPreview(name, viewUrl) {
 
 // Load Drive files on startup
 document.addEventListener('DOMContentLoaded', () => {
+  const sl=document.getElementById('sheet-link');
+  if(sl) sl.href=CONFIG.presupuestoUrl;
   loadSheetData();
   loadDriveFiles();
   setInterval(loadSheetData, 5 * 60 * 1000);
@@ -1123,6 +1125,89 @@ function _initScene(canvas,url){
 
 function reset3D(){if(v3dCtx&&v3dCtx.reset)v3dCtx.reset();}
 
+
+// ══════════════════════════════════════════════════════
+// GOOGLE SHEETS — leer CONFIG del Sheet publicado
+// ══════════════════════════════════════════════════════
+function parseCSV(text) {
+  return text.split('\n').map(row => {
+    const cells=[]; let cur=''; let inQ=false;
+    for(let i=0;i<row.length;i++){
+      const ch=row[i];
+      if(ch==='"'){inQ=!inQ;}
+      else if(ch===','&&!inQ){cells.push(cur.trim());cur='';}
+      else cur+=ch;
+    }
+    cells.push(cur.trim());
+    return cells;
+  });
+}
+
+function csvCell(rows,row,col){
+  const r=rows[row-1];
+  return r&&r[col-1]?r[col-1].replace(/^"|"$/g,'').trim():'';
+}
+
+function setTxt(id,val){
+  const el=document.getElementById(id);
+  if(el&&val)el.textContent=val;
+}
+
+function loadSheetData(){
+  const btn=document.getElementById('refresh-btn');
+  const indicator=document.getElementById('sheet-status');
+  if(btn)btn.style.opacity='0.5';
+  if(indicator)indicator.textContent='Actualizando...';
+
+  fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=csv')
+    .then(r=>{if(!r.ok)throw new Error(r.status);return r.text();})
+    .then(csv=>{
+      const rows=parseCSV(csv);
+      const d={
+        proyecto   :csvCell(rows,5,3),
+        cliente    :csvCell(rows,6,3),
+        cuit       :csvCell(rows,7,3),
+        direccion  :csvCell(rows,8,3),
+        localidad  :csvCell(rows,9,3),
+        superficie :csvCell(rows,10,3),
+        categoria  :csvCell(rows,11,3),
+        nLicit     :csvCell(rows,12,3),
+        fechaApert :csvCell(rows,13,3),
+        profesional:csvCell(rows,14,3),
+        matricula  :csvCell(rows,15,3),
+        emp1       :csvCell(rows,19,3),
+        emp2       :csvCell(rows,20,3),
+        emp3       :csvCell(rows,21,3),
+        emp4       :csvCell(rows,22,3),
+        emp5       :csvCell(rows,23,3),
+        tipoCambio :csvCell(rows,26,3),
+        cotizacion :csvCell(rows,27,3),
+      };
+      // Update cover
+      setTxt('cv-proyecto',  d.proyecto);
+      setTxt('cv-tipo',      d.categoria);
+      setTxt('cv-ubicacion', d.direccion+(d.localidad?' · '+d.localidad:''));
+      setTxt('cv-cliente-v', d.cliente);
+      setTxt('cv-rep-v',     d.cuit||'—');
+      setTxt('cv-prof-v',    d.profesional);
+      setTxt('cv-mat-v',     d.matricula);
+      setTxt('cv-sup-v',     d.superficie?d.superficie+' m²':'—');
+      setTxt('cv-badge',     d.nLicit);
+      setTxt('cv-fecha-v',   d.fechaApert);
+      setTxt('cv-proyecto',  d.proyecto);
+      setTxt('tb-proyecto',  d.proyecto||'Panel de Proyecto');
+      setTxt('sb-proyecto',  d.proyecto||'Proyecto');
+      setTxt('sb-cliente',   d.cliente||'');
+      if(btn)btn.style.opacity='1';
+      if(indicator){indicator.textContent='✓ Actualizado';setTimeout(()=>indicator.textContent='Actualizar',3000);}
+      console.log('Sheet OK:',d.proyecto);
+    })
+    .catch(err=>{
+      console.warn('Sheet error:',err);
+      if(btn)btn.style.opacity='1';
+      if(indicator)indicator.textContent='⚠ Sin conexión';
+    });
+}
 </script>
 </body>
 </html>
