@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Panel Centenario</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--k:#0a0a0a;--k2:#333;--k3:#666;--k4:#999;--l:#e0e0e0;--lm:#c4c4c4;--s:#f5f5f5;--s2:#ebebeb;--w:#fff;--r:8px;--f:system-ui,sans-serif}
+html,body{height:100%;overflow:hidden;font-family:var(--f);font-size:14px;color:var(--k);background:var(--s)}
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* SIDEBAR */
+.sb{width:240px;min-width:240px;background:var(--w);border-right:1px solid var(--l);overflow-y:auto;z-index:40;transition:transform .25s}
+.brand{padding:18px 16px 14px;border-bottom:1px solid var(--l)}
+.bn{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--k4);margin-bottom:4px}
+.bt{font-size:13px;font-weight:800;color:var(--k)}
+.bm{font-size:10px;color:var(--k4);margin-top:2px}
+.gb{width:100%;background:none;border:none;padding:9px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:1px solid var(--l)}
+.gb:hover,.gb.open{background:var(--s)}
+.gl{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k3)}
+.gb.open .gl{color:var(--k)}
+.gc{font-size:9px;color:var(--k4);transition:transform .2s}
+.gb.open .gc{transform:rotate(90deg)}
+.nl{display:none;list-style:none;background:var(--s)}
+.nl.open{display:block}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 16px;cursor:pointer;border-left:2px solid transparent}
+.ni:hover{background:#e4e4e4}
+.ni.active{border-left-color:var(--k);background:rgba(10,10,10,.04)}
+.nn{font-size:10px;font-weight:700;color:var(--k4);min-width:16px}
+.ni.active .nn{color:var(--k);opacity:.55}
+.na{font-size:12px;font-weight:500;color:var(--k2)}
+.ni.active .na{font-weight:700;color:var(--k)}
+
+/* TOPBAR */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.tb{height:48px;min-height:48px;background:var(--w);border-bottom:1px solid var(--l);display:flex;align-items:center;padding:0 16px;gap:10px}
+.mb{display:none;width:32px;height:32px;background:none;border:1.5px solid var(--lm);border-radius:5px;cursor:pointer;font-size:15px;align-items:center;justify-content:center;flex-shrink:0}
+.bc{display:flex;align-items:center;gap:4px;min-width:0;overflow:hidden}
+.bcc{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--k4);white-space:nowrap}
+.bcs{font-size:10px;color:var(--lm)}
+.bcn{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--k);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbr{margin-left:auto;display:flex;align-items:center;gap:10px}
+.dot{width:6px;height:6px;background:var(--k3);border-radius:50%;animation:g 2s infinite}
+@keyframes g{0%,100%{box-shadow:0 0 0 0 rgba(10,10,10,.3)}70%{box-shadow:0 0 0 5px transparent}}
+.ts{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--k3);white-space:nowrap}
+.tbg{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--k4);padding:3px 8px;border:1px solid var(--lm);border-radius:4px}
+
+/* SCROLL */
+.sc{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.in{padding:20px 20px 70px;max-width:880px}
+
+/* PAGE */
+.pg{display:none}.pg.active{display:block}
+
+/* SECTION */
+.sec{padding-bottom:44px}
+.sh{display:flex;align-items:flex-end;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--l);position:relative}
+.sh::after{content:'';position:absolute;bottom:-2px;left:0;width:20px;height:2px;background:var(--k)}
+.sn{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--k3);margin-right:10px;padding-bottom:1px}
+.st{font-size:18px;font-weight:800;letter-spacing:-.025em;color:var(--k);line-height:1}
+
+/* CARD */
+.card{background:var(--w);border:1px solid var(--l);border-radius:var(--r);padding:18px 18px 14px;margin-bottom:10px}
+.ch{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--k3);margin-bottom:11px}
+.cb{font-size:13px;color:var(--k2);line-height:1.68}
+.cb b{font-weight:700;color:var(--k)}
+hr{border:none;border-top:1px solid var(--l);margin:14px 0}
+
+/* COVER */
+.cv{background:#ffffff !important;border-radius:var(--r);overflow:hidden}
+.cvt{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(10,10,10,.35);flex-wrap:wrap;gap:6px}
+.cve{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,10,.35)}
+.cvp{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,10,.35);padding:2px 7px;border:1px solid rgba(10,10,10,.35);border-radius:3px}
+.cvc{padding:32px 20px 24px}
+.cvty{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:10px}
+.cvn{font-size:clamp(38px,9vw,72px);font-weight:800;letter-spacing:-.04em;color:var(--k);line-height:.93;margin-bottom:14px}
+.cvl{font-size:12px;color:rgba(10,10,10,.35)}
+.cvg{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(10,10,10,.35)}
+.cvc2{padding:12px 14px;border-right:1px solid rgba(10,10,10,.35)}
+.cvc2:nth-child(3n){border-right:none}
+.cvlb{font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:3px}
+.cvv{font-size:12px;font-weight:700;color:var(--k);line-height:1.2;margin-bottom:1px}
+.cvs{font-size:10px;color:rgba(10,10,10,.35)}
+
+/* INFO GRID */
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ib{background:var(--s);border-radius:5px;padding:10px 13px;border-left:3px solid var(--lm)}
+.ib.hi{border-left-color:var(--k)}
+.il{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--k4);margin-bottom:3px}
+.iv{font-size:13px;font-weight:700;letter-spacing:-.02em;color:var(--k);line-height:1.2}
+.is{font-size:11px;color:var(--k4);margin-top:2px;line-height:1.35}
+
+/* TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:300px}
+thead{background:var(--s)}
+th{padding:7px 10px;text-align:left;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k4);border-bottom:2px solid var(--l);white-space:nowrap}
+td{padding:8px 10px;font-size:12px;color:var(--k2);border-bottom:1px solid var(--l);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:rgba(10,10,10,.025)}
+.rt{background:var(--s2);font-weight:800;color:var(--k);border-top:2px solid var(--lm)}
+.rc{background:rgba(10,10,10,.03)}.rc td:first-child{border-left:3px solid var(--k)}
+
+/* BADGES */
+.bk{display:inline-block;background:var(--k);color:#fff;font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:2px 5px;border-radius:2px;margin-left:3px}
+.bg{background:var(--s2);color:var(--k2);font-size:8px;font-weight:800;padding:2px 5px;border-radius:2px;display:inline-block;border:1px solid var(--lm);letter-spacing:.07em;text-transform:uppercase}
+.bm{background:var(--s2);color:var(--k4);font-size:8px;font-weight:800;padding:2px 5px;border-radius:2px;display:inline-block;letter-spacing:.07em;text-transform:uppercase}
+.ba{background:var(--s);color:var(--k3);font-size:8px;font-weight:800;padding:2px 5px;border-radius:2px;display:inline-block;border:1px solid var(--lm);letter-spacing:.07em;text-transform:uppercase}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:4px;padding:7px 12px;border:1.5px solid var(--lm);background:var(--w);border-radius:5px;font-family:var(--f);font-size:11px;font-weight:700;cursor:pointer;color:var(--k2);transition:all .12s;white-space:nowrap}
+.btn:hover{border-color:var(--k);color:var(--k)}
+.bp{background:var(--k);border-color:var(--k);color:#fff}
+.bp:hover{background:var(--k2)}
+.bs{padding:4px 8px;font-size:10px}
+
+/* PILLS */
+.pl{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px}
+.pi{padding:4px 10px;border:1.5px solid var(--lm);border-radius:14px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;background:var(--w);color:var(--k3);transition:all .12s}
+.pi.active,.pi:hover{background:var(--k);border-color:var(--k);color:#fff}
+
+/* DOCS */
+.dl{display:flex;flex-direction:column;gap:6px}
+.di{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--w);border:1px solid var(--l);border-radius:5px}
+.dic{width:30px;height:30px;min-width:30px;background:var(--s2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.din{flex:1;min-width:0}
+.dnm{font-size:12px;font-weight:700;color:var(--k);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dmt{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--k4);margin-top:1px}
+.dac{display:flex;gap:5px;flex-shrink:0}
+
+/* KPI */
+.kr{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
+.kp{background:var(--w);border:1px solid var(--l);border-radius:var(--r);padding:12px 14px}
+.kl{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k4);margin-bottom:5px}
+.kv{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--k);line-height:1;margin-bottom:2px}
+.kv.r{color:var(--k3)}.kv.g{color:var(--k2)}
+.ks{font-size:11px;color:var(--k4)}
+
+/* CF CHART */
+.cfa{background:var(--s);border:1px solid var(--l);border-radius:var(--r);padding:14px 14px 10px}
+.cfl{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k4);margin-bottom:11px}
+.cfb{display:flex;align-items:flex-end;gap:4px;height:64px}
+.cfbw{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.cfb2{width:100%;background:var(--k);border-radius:2px 2px 0 0;opacity:.55;cursor:pointer}
+.cfb2:hover{opacity:1}
+
+/* UPLOAD */
+.uz{border:2px dashed var(--lm);border-radius:var(--r);padding:32px 18px;text-align:center;cursor:pointer}
+.uz:hover{border-color:var(--k);background:rgba(10,10,10,.02)}
+.uzi{font-size:24px;opacity:.15;margin-bottom:9px}
+.uzt{font-size:13px;font-weight:800;color:var(--k);margin-bottom:3px}
+.uzs{font-size:11px;color:var(--k4);margin-bottom:12px}
+
+/* CALENDAR */
+.caw{display:flex;gap:14px;flex-wrap:wrap}
+.cal{background:var(--w);border:1px solid var(--l);border-radius:var(--r);padding:14px;min-width:220px;flex-shrink:0}
+.cnr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.cmn{font-size:13px;font-weight:800;color:var(--k)}
+.cnb{width:24px;height:24px;background:none;border:1.5px solid var(--lm);border-radius:4px;cursor:pointer;font-size:9px}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.cdh{font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--k4);padding:2px 0}
+.cd{font-size:11px;font-weight:500;color:var(--k3);padding:5px 0;border-radius:3px}
+.cd.emp{color:transparent}
+.cd.tod{font-weight:800;color:var(--k)}
+.cd.hm{background:var(--s2);color:var(--k);font-weight:800;cursor:pointer;border:1px solid var(--lm)}
+.cd.hm:hover,.cd.hm:active{background:var(--k);color:#fff}
+.mp{flex:1;min-width:170px;background:var(--w);border:1px solid var(--l);border-radius:var(--r);padding:16px;display:flex;flex-direction:column}
+.mpe{flex:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--k4);min-height:130px;text-align:center}
+.mpm{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k3);margin-bottom:5px}
+.mpt{font-size:14px;font-weight:800;letter-spacing:-.02em;color:var(--k);margin-bottom:7px;line-height:1.25}
+.mpb{font-size:12px;color:var(--k2);line-height:1.6;flex:1;margin-bottom:12px}
+
+/* THREAD */
+.thw{position:relative;padding-left:22px}
+.thw::before{content:'';position:absolute;left:6px;top:14px;bottom:6px;width:1px;background:var(--l)}
+.ti{position:relative;margin-bottom:9px;background:var(--w);border:1px solid var(--l);border-radius:var(--r);padding:12px 14px}
+.tid{position:absolute;left:-29px;top:13px;width:9px;height:9px;background:var(--w);border:2px solid var(--lm);border-radius:50%;z-index:1}
+.ti.os .tid{border-color:var(--k);background:var(--k)}
+.tim{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px}
+.tdt{font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--k4)}
+.ttg{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 5px;border-radius:2px}
+.ttg.os{background:var(--s2);color:var(--k);border:1px solid var(--lm)}
+.ttg.np{background:var(--s);color:var(--k3);border:1px solid var(--lm)}
+.tfr{font-size:12px;font-weight:700;color:var(--k)}
+.tbd{font-size:12px;color:var(--k2);line-height:1.6}
+
+/* GANTT INTERACTIVO */
+.giw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gih{display:flex;border-bottom:2px solid var(--l);padding-bottom:6px;min-width:480px}
+.gilc{min-width:130px;width:130px;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--k4)}
+.gims{flex:1;display:flex}
+.gim{flex:1;text-align:center;font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--k4);border-left:1px solid var(--l)}
+.gir{display:flex;align-items:center;border-top:1px solid var(--l);min-height:36px;min-width:480px}
+.gir:hover{background:rgba(10,10,10,.025)}
+.girl{min-width:130px;width:130px;padding-right:6px}
+.girl input{border:none;background:transparent;font-family:var(--f);font-size:12px;font-weight:600;color:var(--k);width:100%;padding:2px 3px;border-radius:3px}
+.girl input:focus{background:var(--s2);outline:none}
+.gitl{flex:1;display:flex;height:36px}
+.gic{flex:1;height:100%;border-left:1px solid var(--l);cursor:pointer}
+.gic.pl{background:rgba(10,10,10,.12)}.gic.dn{background:rgba(10,10,10,.32)}
+.gilg{display:flex;gap:11px;margin-top:9px}
+.gill{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--k3)}
+.gisw{width:10px;height:7px;border-radius:2px}
+.gisw.pl{background:rgba(10,10,10,.25)}.gisw.dn{background:rgba(10,10,10,.55)}
+.giadd{margin-top:7px;width:100%;background:none;border:1.5px dashed var(--lm);border-radius:5px;padding:6px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--k4);cursor:pointer}
+.giadd:hover{border-color:var(--k);color:var(--k)}
+
+/* GANTT BASE */
+.gbw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gbh{display:grid;grid-template-columns:120px repeat(8,1fr);border-bottom:2px solid var(--l);padding-bottom:5px;min-width:440px}
+.gbhc{font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--k4);padding:0 3px;text-align:center}
+.gbhc:first-child{text-align:left;padding-left:0}
+.gbr{display:grid;grid-template-columns:120px repeat(8,1fr);align-items:center;border-bottom:1px solid var(--l);min-height:32px;min-width:440px}
+.gbl{font-size:11px;font-weight:600;color:var(--k2);padding:4px 5px 4px 0}
+.gbc{padding:4px 2px}
+.gbb{height:12px;background:var(--l);border-radius:2px}
+.gbb.on{background:var(--k)}
+
+/* CC */
+.ccg{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ccb{border:1px solid var(--l);border-radius:var(--r);padding:14px;background:var(--w)}
+.ccb.g{border-top:3px solid var(--k)}.ccb.r{border-top:3px solid var(--k3)}.ccb.d{border-top:3px solid var(--lm)}
+.cch{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--k4);margin-bottom:8px}
+.ccb.g .cch{color:var(--k)}.ccb.r .cch{color:var(--k3)}
+.ccb ul{padding-left:12px}
+.ccb li{font-size:12px;color:var(--k2);line-height:1.85}
+
+/* OVERLAY + BOTTOM NAV */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35}
+.ov.show{display:block}
+.bnav{display:none}
+.row{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+
+@media(max-width:640px){
+  .sb{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);width:min(270px,82vw);min-width:0;z-index:50;box-shadow:4px 0 18px rgba(0,0,0,.15)}
+  .sb.open{transform:translateX(0)}
+  .mb{display:flex}
+  .main{height:100vh}
+  .in{padding:14px 13px 68px}
+  .st{font-size:16px}
+  .ig,.ccg,.kr{grid-template-columns:1fr 1fr}
+  table{min-width:280px}
+  .cvg{grid-template-columns:1fr 1fr}
+  .caw{flex-direction:column}
+  .cal,.mp{min-width:0;width:100%}
+  .gilc,.girl{min-width:105px;width:105px}
+  .gih,.gir{min-width:420px}
+  .ts{display:none}
+  .dac .btn:not(.bp){display:none}
+  .bnav{display:flex;position:fixed;bottom:0;left:0;right:0;height:56px;background:var(--w);border-top:1px solid var(--l);z-index:30;align-items:stretch}
+  .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;border:none;background:none}
+  .bi.active{background:rgba(10,10,10,.04)}
+  .bii{font-size:17px;line-height:1}
+  .bil{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--k4)}
+  .bi.active .bil{color:var(--k);font-weight:800}
+  .kr{grid-template-columns:1fr 1fr}
+  button{color:inherit;-webkit-tap-highlight-color:transparent}
+  .bi,.bi *{color:var(--k4)}
+  .bi.active,.bi.active *{color:var(--k)}
+}
+@media(min-width:641px) and (max-width:900px){
+  .sb{width:200px;min-width:200px}
+  .in{padding:18px 18px 44px}
+  .kr{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="ov" id="ov" onclick="cSb()"></div>
+
+<aside class="sb" id="sb">
+  <div class="brand">
+    <div class="bn">Panel de Gestión</div>
+    <div class="bt">Proyecto Centenario</div>
+    <div class="bm">Nave Industrial · 2026</div>
+  </div>
+  <button class="gb open" id="g-a" onclick="tog('a')"><span class="gl">Proyecto</span><span class="gc">▶</span></button>
+  <ul class="nl open" id="n-a">
+    <li class="ni active" onclick="go('a','a1',this)"><span class="nn">01</span><span class="na">Portada</span></li>
+    <li class="ni" onclick="go('a','a2',this)"><span class="nn">02</span><span class="na">Alcance</span></li>
+    <li class="ni" onclick="go('a','a3',this)"><span class="nn">03</span><span class="na">Memoria</span></li>
+    <li class="ni" onclick="go('a','a4',this)"><span class="nn">04</span><span class="na">Imágenes</span></li>
+    <li class="ni" onclick="go('a','a5',this)"><span class="nn">05</span><span class="na">Planos</span></li>
+    <li class="ni" onclick="go('a','a6',this)"><span class="nn">06</span><span class="na">Presupuesto</span></li>
+    <li class="ni" onclick="go('a','a7',this)"><span class="nn">07</span><span class="na">Gantt</span></li>
+    <li class="ni" onclick="go('a','a8',this)"><span class="nn">08</span><span class="na">Comercial</span></li>
+  </ul>
+  <button class="gb" id="g-b" onclick="tog('b')"><span class="gl">Gestión</span><span class="gc">▶</span></button>
+  <ul class="nl" id="n-b">
+    <li class="ni" onclick="go('b','b1',this)"><span class="nn">01</span><span class="na">Contrato</span></li>
+    <li class="ni" onclick="go('b','b2',this)"><span class="nn">02</span><span class="na">Cashflow</span></li>
+    <li class="ni" onclick="go('b','b3',this)"><span class="nn">03</span><span class="na">Subcontratos</span></li>
+    <li class="ni" onclick="go('b','b4',this)"><span class="nn">04</span><span class="na">Adicionales</span></li>
+  </ul>
+  <button class="gb" id="g-c" onclick="tog('c')"><span class="gl">Dirección</span><span class="gc">▶</span></button>
+  <ul class="nl" id="n-c">
+    <li class="ni" onclick="go('c','c1',this)"><span class="nn">01</span><span class="na">Tipo Dirección</span></li>
+    <li class="ni" onclick="go('c','c2',this)"><span class="nn">02</span><span class="na">Planos Ej.</span></li>
+    <li class="ni" onclick="go('c','c3',this)"><span class="nn">03</span><span class="na">Minutas</span></li>
+    <li class="ni" onclick="go('c','c4',this)"><span class="nn">04</span><span class="na">OS y NP</span></li>
+    <li class="ni" onclick="go('c','c5',this)"><span class="nn">05</span><span class="na">Avance</span></li>
+  </ul>
+</aside>
+
+<main class="main">
+  <div class="tb">
+    <button class="mb" onclick="oSb()">☰</button>
+    <div class="bc"><span class="bcc" id="bcc">A. Proyecto</span><span class="bcs">/</span><span class="bcn" id="bcn">Portada</span></div>
+    <div class="tbr"><div class="ts"><div class="dot"></div>En progreso</div><div class="tbg">2026-005</div></div>
+  </div>
+
+  <div class="sc" id="sc">
+  <div class="in">
+
+  <!-- PAGE A -->
+  <div class="pg active" id="pg-a">
+    <div class="sec" id="a1">
+      <div class="cv">
+        <div class="cvt"><span class="cve">Panel · Anteproyecto</span><span class="cvp" id="cv-badge">2026-005</span></div>
+        <div class="cvc"><div class="cvty" id="cv-tipo">Proyecto Industrial</div><h1 class="cvn" id="cv-proyecto">Nave<br>Centenario</h1><div class="cvl" id="cv-ubicacion">Parque Industrial Sur · Quilmes, Bs.As.</div></div>
+        <div class="cvg">
+          <div class="cvc2"><div class="cvlb">Cliente</div><div class="cvv" id="cv-cliente-v">Des. Industriales</div><div class="cvs" id="cv-rep-v">Ing. C. Méndez</div></div>
+          <div class="cvc2"><div class="cvlb">Profesional</div><div class="cvv" id="cv-prof-v">Arq. M. Rodríguez</div><div class="cvs" id="cv-mat-v">Mat. 45.882 CAPBA</div></div>
+          <div class="cvc2"><div class="cvlb">Superficie</div><div class="cvv" id="cv-sup-v">1.850 m²</div><div class="cvs">PB + entresuelo</div></div>
+          <div class="cvc2"><div class="cvlb">Plazo</div><div class="cvv">8 meses</div><div class="cvs">Inicio Jun 2026</div></div>
+          <div class="cvc2"><div class="cvlb">Emisión</div><div class="cvv" id="cv-fecha-v">10 May 2026</div><div class="cvs">Visado CAPBA</div></div>
+          <div class="cvc2"><div class="cvlb">Estado</div><div class="cvv">Anteproyecto</div><div class="cvs">Etapa activa</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="a2">
+      <div class="sh"><span class="sn">02/</span><h2 class="st">Alcance Profesional</h2></div>
+      <div class="card"><div class="ch">Rol del Profesional</div><p class="cb">El arquitecto actúa como <b>representante técnico del comitente</b> ante organismos, contratistas y terceros, coordinando el proyecto de inicio a fin conforme al <b>Decreto Arancelario 6964/65</b>.</p></div>
+      <div class="card">
+        <div class="ch">Modalidad de Contratación</div>
+        <div class="pl">
+          <button class="pi active" onclick="sm('dt',this)">Proy.+Dir.</button>
+          <button class="pi" onclick="sm('cs',this)">Contr. Sep.</button>
+          <button class="pi" onclick="sm('de',this)">Dir. Ejec.</button>
+          <button class="pi" onclick="sm('gm',this)">Gerenc.</button>
+        </div>
+        <div id="md-dt"><p class="cb">El arquitecto asume el <b>proyecto integral y su dirección técnica</b>. Incluye: proyecto, documentación, visaciones CAPBA, OS y certificados. Arancel según Decreto 6964/65.</p></div>
+        <div id="md-cs" style="display:none"><p class="cb">El comitente contrata <b>rubros independientes</b>. El arquitecto coordina todos los contratistas. Arancel con <b>+100% de suplemento</b> sobre la dirección base.</p></div>
+        <div id="md-de" style="display:none"><p class="cb">El <b>comitente actúa como empresario constructor</b>. El arquitecto conduce la obra y administra MO y subcontratistas en nombre del comitente. Suplemento <b>+200%</b>.</p></div>
+        <div id="md-gm" style="display:none"><p class="cb">El arquitecto actúa como <b>gerente integral</b> desde la idea hasta la entrega, coordinando proyectistas, director de obra y constructora. Honorario convenido por etapa.</p></div>
+      </div>
+    </div>
+
+    <div class="sec" id="a3">
+      <div class="sh"><span class="sn">03/</span><h2 class="st">Memoria Descriptiva</h2></div>
+      <div class="card">
+        <div class="ch">Descripción del Proyecto</div>
+        <div id="mem-descripcion" class="cb" style="margin-bottom:10px">Cargando...</div>
+        <div id="mem-intro" class="cb" style="font-style:italic;color:var(--k3);font-size:12px;border-top:1px solid var(--l);padding-top:8px;margin-top:4px"></div>
+        <div class="row" style="margin-top:10px">
+          <a id="mem-doc-link" href="#" target="_blank" class="btn bp" style="text-decoration:none">↓ Descargar Memoria</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch">Sistema Constructivo</div>
+        <div class="tw"><table><thead><tr><th>Elemento</th><th>Especificación</th></tr></thead><tbody>
+          <tr><td><b>Estructura</b></td><td>Perfiles L y U galvanizados reticulados s/cálculo</td></tr>
+          <tr><td><b>Envolvente</b></td><td>Chapa sinusoidal blanca o T101 trapezoidal</td></tr>
+          <tr><td><b>Cubierta</b></td><td>Chapa sinusoidal + franja traslúcida cenital 1,2 m</td></tr>
+          <tr><td><b>Accesos</b></td><td>2 portones corredizos 3,5–4 m, estructura hierro</td></tr>
+          <tr><td><b>Piso</b></td><td>H21 e:0,15 m, malla sima, juntas de dilatación</td></tr>
+          <tr><td><b>Eléctrica</b></td><td>Tablero Genrod S9000, 3 circuitos, puesta a tierra</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="card"><div class="ccg">
+        <div class="ccb r"><div class="cch">No Incluye</div><ul><li>Estudio de suelos</li><li>Relevamiento topogr.</li><li>Planos municipales</li><li>Inst. contra incendios</li><li>Conexión al pilar</li></ul></div>
+        <div class="ccb d"><div class="cch">Notas Técnicas</div><ul><li>Sujeto a dólar/CAC</li><li>Suelo: USD 700/día</li><li>Nave &gt;1.000 m²: req. incendio</li><li>Sin parque: sereno</li></ul></div>
+      </div></div>
+    </div>
+
+    <div class="sec" id="a4">
+      <div class="sh"><span class="sn">04/</span><h2 class="st">Imágenes</h2></div>
+
+      <!-- VISOR 3D -->
+      <div class="card">
+        <div class="ch">Modelo 3D — Navegable</div>
+        <div id="v3d-wrap" style="position:relative;width:100%;aspect-ratio:16/9;background:var(--s);border:1px solid var(--l);border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <canvas id="v3d" style="position:absolute;inset:0;width:100%;height:100%;display:none;touch-action:none"></canvas>
+          <!-- Estado vacío -->
+          <div id="v3d-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="4" y="14" width="32" height="20" rx="2" stroke="#ccc" stroke-width="1.5"/><path d="M4 20L20 8L36 20" stroke="#ccc" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 26l6-6 6 6" stroke="#ccc" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="22" r="2" fill="#ccc"/></svg>
+            <div style="font-size:13px;font-weight:700;color:var(--k3)">Cargar modelo 3D</div>
+            <div style="font-size:11px;color:var(--k4);line-height:1.5">Formato GLB / GLTF<br>Exportá desde SketchUp o Revit</div>
+            <label style="display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:var(--k);color:#fff;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer">
+              ↑ Seleccionar archivo
+              <input type="file" accept=".glb,.gltf" id="v3d-input" style="display:none" onchange="load3D(this)">
+            </label>
+          </div>
+          <!-- Controles -->
+          <div id="v3d-controls" style="display:none;position:absolute;bottom:10px;right:10px;display:none;flex-direction:column;gap:5px">
+            <button onclick="reset3D()" style="width:32px;height:32px;background:rgba(255,255,255,.9);border:1px solid var(--l);border-radius:5px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center" title="Resetear vista">⟳</button>
+            <label style="width:32px;height:32px;background:rgba(255,255,255,.9);border:1px solid var(--l);border-radius:5px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center" title="Cambiar modelo">
+              ↑<input type="file" accept=".glb,.gltf" style="display:none" onchange="load3D(this)">
+            </label>
+          </div>
+          <div id="v3d-hint" style="display:none;position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;pointer-events:none">Arrastrá para rotar · Pinzá para zoom</div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--k4);line-height:1.5">
+          <b style="color:var(--k3)">Cómo exportar:</b> SketchUp → Archivo → Exportar → Modelo 3D → GLB &nbsp;|&nbsp; Revit → Exportar → Formatos de intercambio → GLB
+        </div>
+      </div>
+
+      <!-- Imágenes slideshow -->
+      <div class="card">
+        <div class="ch">Renders y Fotografías</div>
+        <div id="img-viewer" style="position:relative;background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center">
+          <div id="img-ph" style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.3">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="3" y="7" width="34" height="26" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="14" cy="17" r="3" stroke="currentColor" stroke-width="2"/><path d="M3 28l9-8 7 7 5-5 13 9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Sin imágenes</span>
+          </div>
+          <img id="img-slide" src="" style="display:none;width:100%;height:100%;object-fit:contain">
+          <button id="img-prev" onclick="imgPrev()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)">◀</button>
+          <button id="img-next" onclick="imgNext()" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)">▶</button>
+          <div id="img-counter" style="display:none;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.45);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px"></div>
+        </div>
+        <div class="row" style="justify-content:space-between">
+          <a id="img-dl-a" href="#" download style="text-decoration:none"><button id="img-dl-btn" class="btn bp" style="opacity:.3;pointer-events:none">↓ Descargar</button></a>
+          <label class="btn" style="cursor:pointer">↑ Cargar<input type="file" accept="image/*" multiple style="display:none" onchange="loadImgsLocal(this)"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="a5">
+      <div class="sh"><span class="sn">05/</span><h2 class="st">Planos</h2></div>
+      <div class="card">
+        <div class="ch">Planos del Proyecto</div>
+        <div style="background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:12px">
+          <div id="plano-ph" style="height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:.35">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="22" height="30" rx="2" stroke="currentColor" stroke-width="2"/><line x1="9" y1="13" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="17" x2="19" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Seleccioná un plano</span>
+          </div>
+          <iframe id="plano-viewer" src="" style="display:none;width:100%;height:500px;border:none" allowfullscreen></iframe>
+        </div>
+        <div id="planos-list" style="border:1px solid var(--l);border-radius:6px;overflow:hidden;margin-bottom:10px"></div>
+        <div class="row">
+          <label class="btn bp" style="cursor:pointer">↑ Cargar plano<input type="file" accept=".pdf" multiple style="display:none" onchange="loadPlanosLocal(this)"></label>
+        </div>
+      </div>
+    class="sec" id="a6">
+      <div class="sh"><span class="sn">06/</span><h2 class="st">Presupuesto</h2></div>
+      <div class="kr">
+        <div class="kp"><div class="kl">Total s/IVA</div><div class="kv">$103M</div><div class="ks">Pesos arg.</div></div>
+        <div class="kp"><div class="kl">Costo m²</div><div class="kv">USD 662</div><div class="ks">108 m²</div></div>
+        <div class="kp"><div class="kl">Anticipo</div><div class="kv">30%</div><div class="ks">$30.9M</div></div>
+        <div class="kp"><div class="kl">Validez</div><div class="kv">15 días</div><div class="ks">Base Feb 2026</div></div>
+      </div>
+      <div class="card"><div class="ch">Desglose por Capítulo</div>
+        <div class="tw"><table><thead><tr><th>#</th><th>Capítulo</th><th style="text-align:right">s/IVA</th><th style="text-align:right">%</th></tr></thead><tbody>
+          <tr><td>1</td><td>Tareas Preliminares</td><td style="text-align:right">$3.956.636</td><td style="text-align:right"><span class="bm">4,2%</span></td></tr>
+          <tr><td>2</td><td>Estudios e Ingeniería</td><td style="text-align:right">$4.000.000</td><td style="text-align:right"><span class="bm">4,3%</span></td></tr>
+          <tr><td>3</td><td>Mov. de Suelos</td><td style="text-align:right">$5.200.000</td><td style="text-align:right"><span class="bm">5,6%</span></td></tr>
+          <tr><td>4</td><td>Fundaciones</td><td style="text-align:right">$9.053.200</td><td style="text-align:right"><span class="bm">9,7%</span></td></tr>
+          <tr><td>5</td><td>Albañilería</td><td style="text-align:right">$8.600.000</td><td style="text-align:right"><span class="bm">9,2%</span></td></tr>
+          <tr><td>6</td><td>Inst. Eléctrica</td><td style="text-align:right">$11.910.000</td><td style="text-align:right"><span class="bm">12,7%</span></td></tr>
+          <tr class="rc"><td>7</td><td><b>Montaje MO+Mat.</b></td><td style="text-align:right;font-weight:700">$43.454.330</td><td style="text-align:right"><span class="bk">46,4%</span></td></tr>
+          <tr><td>8</td><td>Piso Industrial</td><td style="text-align:right">$7.493.600</td><td style="text-align:right"><span class="bm">8,0%</span></td></tr>
+          <tr class="rt"><td colspan="2">Total s/IVA</td><td style="text-align:right">$93.667.766</td><td style="text-align:right">100%</td></tr>
+        </tbody></table></div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;padding:10px;background:var(--s);border-radius:6px">
+          <div>
+            <div style="font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--k4)">Total adjudicado</div>
+            <div id="pres-total" style="font-size:18px;font-weight:800;color:var(--k)">—</div>
+          </div>
+          <div style="margin-left:auto">
+            <div style="font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--k4)">vs menor precio</div>
+            <div id="pres-pct" style="font-size:14px;font-weight:700;color:var(--k3)">—</div>
+          </div>
+        </div>
+        <div class="row">
+          <a id="pres-xl-link" href="${SHEET_XLS}" target="_blank" class="btn bp" style="text-decoration:none">↓ Descargar Excel</a>
+          <a href="${SHEET_VIEW}" target="_blank" class="btn" style="text-decoration:none;font-size:10px">📊 Ver Sheet</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="a7">
+      <div class="sh"><span class="sn">07/</span><h2 class="st">Diagrama Gantt</h2></div>
+      <div class="card"><div class="ch">Cronograma Base</div><div class="gbw"><div id="gb"></div></div></div>
+    </div>
+
+    <div class="sec" id="a8">
+      <div class="sh"><span class="sn">08/</span><h2 class="st">Cond. Comerciales</h2></div>
+      <div class="card"><div class="ccg">
+        <div class="ccb g"><div class="cch">Incluye</div><ul><li>Dirección técnica</li><li>Planos ejecutivos</li><li>Gestión permisos</li><li>Coordinación subcontr.</li><li>Certificados CAPBA</li></ul></div>
+        <div class="ccb r"><div class="cch">No Incluye</div><ul><li>Materiales y MO</li><li>Conexiones servicios</li><li>Ing. especialistas</li><li>Gastos notariales</li></ul></div>
+        <div class="ccb d"><div class="cch">Forma de Pago</div><ul><li>30% anticipo firma</li><li>40% certif. 50%</li><li>20% certif. 80%</li><li>10% recepción</li></ul></div>
+        <div class="ccb d"><div class="cch">Obligaciones</div><ul><li>Energía en obra</li><li>Acceso libre</li><li>Tasas municipales</li><li>Seguro de obra</li></ul></div>
+      </div></div>
+    </div>
+  </div><!-- /pg-a -->
+
+  <!-- PAGE B -->
+  <div class="pg" id="pg-b">
+    <div class="sec" id="b1">
+      <div class="sh"><span class="sn">01/</span><h2 class="st">Contrato CAPBA</h2></div>
+      <div class="card"><div class="ch">Contrato Sellado</div>
+        <div class="uz" onclick="su()"><div class="uzi">📋</div><div class="uzt" id="ut">Cargar Contrato Firmado</div><div class="uzs">PDF — Contrato CAPBA sellado y firmado</div><button class="btn bp" onclick="event.stopPropagation()">↑ Seleccionar</button></div>
+      </div>
+      <div class="card"><div class="ch">Firmantes</div><div class="ig">
+        <div class="ib hi"><div class="il">Comitente</div><div class="iv">Des. Industriales S.A.</div><div class="is">Ing. Carlos Méndez</div></div>
+        <div class="ib hi"><div class="il">Profesional</div><div class="iv">Arq. M. Rodríguez</div><div class="is">Mat. 45.882 · CAPBA</div></div>
+      </div></div>
+    </div>
+
+    <div class="sec" id="b2">
+      <div class="sh"><span class="sn">02/</span><h2 class="st">Cashflow</h2></div>
+      <div class="card"><div class="ch">KPIs</div>
+        <div class="kr">
+          <div class="kp"><div class="kl">Contrato</div><div class="kv">$46.8M</div><div class="ks">c/IVA</div></div>
+          <div class="kp"><div class="kl">Cobrado</div><div class="kv g">$14.0M</div><div class="ks">30%</div></div>
+          <div class="kp"><div class="kl">Pendiente</div><div class="kv r">$32.8M</div><div class="ks">70%</div></div>
+          <div class="kp"><div class="kl">Próx. Venc.</div><div class="kv">01 Sep</div><div class="ks">Certif. 50%</div></div>
+        </div>
+        <div class="cfa"><div class="cfl">Distribución Mensual</div><div class="cfb" id="cfb"></div><div style="display:flex" id="cfl2"></div></div>
+      </div>
+    </div>
+
+    <div class="sec" id="b3">
+      <div class="sh"><span class="sn">03/</span><h2 class="st">Subcontratos</h2></div>
+      <div class="card"><div class="ch">Presupuestos Recibidos</div>
+        <div class="pl">
+          <button class="pi active" onclick="fS('all',this)">Todos</button>
+          <button class="pi" onclick="fS('e',this)">Estructura</button>
+          <button class="pi" onclick="fS('i',this)">Instalaciones</button>
+          <button class="pi" onclick="fS('c',this)">Civil</button>
+        </div>
+        <div class="tw"><table><thead><tr><th>Rubro</th><th>Empresa</th><th>Monto</th><th>Estado</th></tr></thead><tbody>
+          <tr data-c="c"><td>Mov. suelos</td><td>Excavaciones Sur</td><td>$1.850.000</td><td><span class="bm">Evalúa</span></td></tr>
+          <tr data-c="c"><td>Mov. suelos</td><td>Moviterra S.A.</td><td>$1.620.000</td><td><span class="bm">Evalúa</span></td></tr>
+          <tr class="rc" data-c="e"><td><b>Estr. metálica</b></td><td><b>Metalúrgica Ind.</b><span class="bk">Adj.</span></td><td><b>$8.900.000</b></td><td><span class="bg">✓ OK</span></td></tr>
+          <tr data-c="e"><td>Estr. metálica</td><td>Indumetal Tec</td><td>$9.450.000</td><td><span class="bm">No adj.</span></td></tr>
+          <tr data-c="i"><td>Inst. eléctrica</td><td>Luz y Fuerza</td><td>$3.200.000</td><td><span class="bm">Evalúa</span></td></tr>
+          <tr data-c="i"><td>Inst. sanitaria</td><td>Sanitec S.R.L.</td><td>$1.100.000</td><td><span class="bm">Evalúa</span></td></tr>
+        </tbody></table></div>
+        <div class="row"><button class="btn bp">↑ Cargar</button></div>
+      </div>
+    </div>
+
+    <div class="sec" id="b4">
+      <div class="sh"><span class="sn">04/</span><h2 class="st">Adicionales</h2></div>
+      <div class="card"><div class="ch">Presupuestos Adicionales</div>
+        <div class="tw"><table><thead><tr><th>#</th><th>Descripción</th><th>Monto</th><th>Estado</th></tr></thead><tbody>
+          <tr><td>AD-01</td><td>Ampliación Vestuarios</td><td>$820.000</td><td><span class="bg">Aprobado</span></td></tr>
+          <tr><td>AD-02</td><td>Acceso vehicular norte</td><td>$340.000</td><td><span class="ba">Pendiente</span></td></tr>
+        </tbody></table></div>
+        <div class="row"><button class="btn bp">+ Nuevo</button></div>
+      </div>
+    </div>
+  </div><!-- /pg-b -->
+
+  <!-- PAGE C -->
+  <div class="pg" id="pg-c">
+    <div class="sec" id="c1">
+      <div class="sh"><span class="sn">01/</span><h2 class="st">Tipo de Dirección</h2></div>
+      <div class="card"><div class="ch">Modalidad Contratada</div>
+        <p class="cb"><b>Dirección Ejecutiva e Inspección de Obra</b> — conducción técnica integral, coordinación de subcontratistas y OS. Mínimo <b>2 visitas semanales</b> con constancia en libro de obra.</p>
+        <hr><div class="ig">
+          <div class="ib hi"><div class="il">Frecuencia</div><div class="iv">Mín. 2/semana</div></div>
+          <div class="ib hi"><div class="il">Libro de Obra</div><div class="iv">Habilitado CAPBA</div></div>
+          <div class="ib"><div class="il">Inicio</div><div class="iv">01 Jun 2026</div></div>
+          <div class="ib"><div class="il">Informes</div><div class="iv">Quincenal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="c2">
+      <div class="sh"><span class="sn">02/</span><h2 class="st">Planos Ejecutivos</h2></div>
+      <div class="card"><div class="ch">Documentación</div>
+        <div class="pl">
+          <button class="pi active" onclick="fP('t',this)">Todos</button>
+          <button class="pi" onclick="fP('a',this)">Arq.</button>
+          <button class="pi" onclick="fP('e',this)">Estr.</button>
+          <button class="pi" onclick="fP('i',this)">Inst.</button>
+          <button class="pi" onclick="fP('d',this)">Det.</button>
+        </div>
+        <div class="dl" id="edl">
+          <div class="di" data-c="a"><div class="dic">📐</div><div class="din"><div class="dnm">EJ-AR-01 — Planta Ejecutiva</div><div class="dmt">PDF · 3.2MB · Rev.01</div></div><div class="dac"><button class="btn bs">Vista</button><button class="btn bp bs">↓</button></div></div>
+          <div class="di" data-c="e"><div class="dic">📐</div><div class="din"><div class="dnm">EJ-ES-01 — Fundaciones</div><div class="dmt">PDF · 2.8MB · Rev.00</div></div><div class="dac"><button class="btn bs">Vista</button><button class="btn bp bs">↓</button></div></div>
+          <div class="di" data-c="e"><div class="dic">📐</div><div class="din"><div class="dnm">EJ-ES-02 — Pórticos</div><div class="dmt">PDF · 1.9MB · Rev.00</div></div><div class="dac"><button class="btn bs">Vista</button><button class="btn bp bs">↓</button></div></div>
+          <div class="di" data-c="i"><div class="dic">📐</div><div class="din"><div class="dnm">EJ-IN-01 — Esquema Eléctrico</div><div class="dmt">PDF · 1.1MB · Rev.00</div></div><div class="dac"><button class="btn bs">Vista</button><button class="btn bp bs">↓</button></div></div>
+          <div class="di" data-c="d"><div class="dic">📐</div><div class="din"><div class="dnm">EJ-DT-01 — Detalle Nudo</div><div class="dmt">PDF · 0.8MB · Rev.00</div></div><div class="dac"><button class="btn bs">Vista</button><button class="btn bp bs">↓</button></div></div>
+        </div>
+        <div class="row"><button class="btn bp">↑ Cargar</button><button class="btn">↓ Todo</button></div>
+      </div>
+    </div>
+
+    <div class="sec" id="c3">
+      <div class="sh"><span class="sn">03/</span><h2 class="st">Minutas</h2></div>
+      <div class="card"><div class="ch">Calendario — Mayo 2026</div>
+        <div class="caw">
+          <div class="cal"><div class="cnr"><button class="cnb">◀</button><span class="cmn">Mayo 2026</span><button class="cnb">▶</button></div><div class="cg" id="cg"></div></div>
+          <div class="mp" id="mp"><div class="mpe">← Seleccioná<br>una fecha</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec" id="c4">
+      <div class="sh"><span class="sn">04/</span><h2 class="st">OS y NP</h2></div>
+      <div class="card"><div class="ch">Historial</div>
+        <div class="pl">
+          <button class="pi active" onclick="fT('all',this)">Todos</button>
+          <button class="pi" onclick="fT('os',this)">OS</button>
+          <button class="pi" onclick="fT('np',this)">NP</button>
+        </div>
+        <div class="thw" id="thc"></div>
+      </div>
+    </div>
+
+    <div class="sec" id="c5">
+      <div class="sh"><span class="sn">05/</span><h2 class="st">Avance Real</h2></div>
+      <div class="card"><div class="ch">Gantt Interactivo</div>
+        <div class="giw" id="gi"></div>
+        <div class="gilg"><div class="gill"><div class="gisw pl"></div>Planificado</div><div class="gill"><div class="gisw dn"></div>Ejecutado</div></div>
+        <button class="giadd" onclick="aGR()">+ Agregar actividad</button>
+      </div>
+    </div>
+  </div><!-- /pg-c -->
+
+  </div></div>
+</main>
+
+<nav class="bnav">
+  <button class="bi active" onclick="swM('a',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="11" width="16" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M2 11L10 3L18 11" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="7.5" y="14" width="5" height="4" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="bil">Proyecto</span></button>
+  <button class="bi" onclick="swM('b',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="12" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="bil">Gestión</span></button>
+  <button class="bi" onclick="swM('c',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><line x1="10" y1="2.5" x2="10" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="10" x2="11.5" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="bil">Dirección</span></button>
+</nav>
+</div>
+
+<script>
+const CAT={a:'A. Proyecto',b:'B. Gestión',c:'C. Dirección'};
+const SEC={a1:'Portada',a2:'Alcance',a3:'Memoria',a4:'Imágenes',a5:'Planos',a6:'Presupuesto',a7:'Gantt',a8:'Comercial',b1:'Contrato',b2:'Cashflow',b3:'Subcontratos',b4:'Adicionales',c1:'Dirección',c2:'Planos Ej.',c3:'Minutas',c4:'OS y NP',c5:'Avance'};
+let cur='a';
+function oSb(){document.getElementById('sb').classList.add('open');document.getElementById('ov').classList.add('show')}
+function cSb(){document.getElementById('sb').classList.remove('open');document.getElementById('ov').classList.remove('show')}
+function tog(id){const n=document.getElementById('n-'+id),b=document.getElementById('g-'+id);if(!n.classList.contains('open')){['a','b','c'].forEach(x=>{document.getElementById('n-'+x).classList.remove('open');document.getElementById('g-'+x).classList.remove('open')});n.classList.add('open');b.classList.add('open');swP(id)}}
+function swP(id){cur=id;document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.getElementById('pg-'+id).classList.add('active');document.getElementById('bcc').textContent=CAT[id];document.getElementById('sc').scrollTop=0;const f=document.querySelector('#n-'+id+' .ni');if(f){document.querySelectorAll('.ni').forEach(i=>i.classList.remove('active'));f.classList.add('active');const m=f.getAttribute('onclick').match(/'([a-z0-9]+)',/);if(m)document.getElementById('bcn').textContent=SEC[m[1]]||''}}
+function go(cat,sid,el){if(cur!==cat){['a','b','c'].forEach(x=>{document.getElementById('n-'+x).classList.remove('open');document.getElementById('g-'+x).classList.remove('open')});document.getElementById('n-'+cat).classList.add('open');document.getElementById('g-'+cat).classList.add('open');swP(cat)}document.querySelectorAll('.ni').forEach(i=>i.classList.remove('active'));el.classList.add('active');document.getElementById('bcn').textContent=SEC[sid]||'';setTimeout(()=>{const t=document.getElementById(sid);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})},40);cSb()}
+function swM(id,btn){document.querySelectorAll('.bi').forEach(b=>b.classList.remove('active'));btn.classList.add('active');['a','b','c'].forEach(x=>{document.getElementById('n-'+x).classList.remove('open');document.getElementById('g-'+x).classList.remove('open')});document.getElementById('n-'+id).classList.add('open');document.getElementById('g-'+id).classList.add('open');swP(id)}
+function sm(id,el){document.querySelectorAll('#a2 .pl .pi').forEach(b=>b.classList.remove('active'));el.classList.add('active');['dt','cs','de','gm'].forEach(m=>document.getElementById('md-'+m).style.display=m===id?'block':'none')}
+function fS(c,el){document.querySelectorAll('#b3 .pl .pi').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.querySelectorAll('#b3 tbody tr').forEach(r=>{r.style.display=(c==='all'||r.dataset.c===c)?'':'none'})}
+function fP(c,el){document.querySelectorAll('#c2 .pl .pi').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.querySelectorAll('#edl .di').forEach(d=>{d.style.display=(c==='t'||d.dataset.c===c)?'flex':'none'})}
+function fT(t,el){document.querySelectorAll('#c4 .pl .pi').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.ti').forEach(i=>{i.style.display=(t==='all'||i.dataset.t===t)?'block':'none'})}
+function su(){const t=document.getElementById('ut');if(t&&t.textContent.includes('Cargar'))t.textContent='✓ CONTRATO-2026-005.pdf — Cargado'}
+
+// Gantt base
+const GBD=[{l:'Fundaciones',b:[1,1,0,0,0,0,0,0]},{l:'Estructura',b:[0,1,1,1,0,0,0,0]},{l:'Cubierta',b:[0,0,0,1,1,0,0,0]},{l:'Cerramientos',b:[0,0,0,0,1,1,0,0]},{l:'Instalaciones',b:[0,0,1,1,1,0,0,0]},{l:'Terminaciones',b:[0,0,0,0,0,0,1,1]}];
+const MS=['Jun','Jul','Ago','Sep','Oct','Nov','Dic','Ene'];
+function rGB(){const w=document.getElementById('gb');if(!w)return;let h=`<div class="gbh"><div class="gbhc">Actividad</div>${MS.map(m=>`<div class="gbhc">${m}</div>`).join('')}</div>`;h+=GBD.map(r=>`<div class="gbr"><div class="gbl">${r.l}</div>${r.b.map(b=>`<div class="gbc"><div class="gbb${b?' on':''}"></div></div>`).join('')}</div>`).join('');w.innerHTML=h}
+
+// Cashflow
+function rCF(){const d=[14,8,8,10,10,8,8,8,8,6,6,4],lb=['Jun','Jul','Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May'],mx=14,c=document.getElementById('cfb'),l=document.getElementById('cfl2');if(!c)return;c.innerHTML=d.map((v,i)=>`<div class="cfbw"><div class="cfb2" style="height:${(v/mx)*60}px" title="${lb[i]}:$${v}M"></div></div>`).join('');l.innerHTML=d.map((_,i)=>`<div style="flex:1;text-align:center;font-size:8px;font-weight:700;text-transform:uppercase;color:var(--k4)">${lb[i]}</div>`).join('')}
+
+// Calendar
+const MN={8:{ti:'Visita N°3',bd:'Replanteo de ejes. Inspección de armaduras. Verificación de recubrimientos según EJ-ES-01. Próxima acción: colado platea sector norte.'},15:{ti:'Visita N°4',bd:'Control de hormigonado platea norte. Verificación niveles +0.00. Avance acopio perfilería metálica. OS-01 emitida.'},22:{ti:'Visita N°5',bd:'Inicio montaje estructura metálica. Control niveles columnas. Pendiente: certificado pintura epoxi.'}};
+function rCal(){const g=document.getElementById('cg');if(!g)return;['Lu','Ma','Mi','Ju','Vi','Sa','Do'].forEach(d=>{const h=document.createElement('div');h.className='cdh';h.textContent=d;g.appendChild(h)});for(let i=0;i<4;i++){const e=document.createElement('div');e.className='cd emp';e.textContent='·';g.appendChild(e)}for(let d=1;d<=31;d++){const el=document.createElement('div');el.className='cd'+(MN[d]?' hm':'')+(d===14?' tod':'');el.textContent=d;if(MN[d])el.onclick=()=>sMin(d);g.appendChild(el)}}
+function sMin(d){const m=MN[d],p=document.getElementById('mp');if(!m||!p)return;p.innerHTML=`<div class="mpm">Mayo ${d}, 2026</div><div class="mpt">${m.ti}</div><div class="mpb">${m.bd}</div><div class="row"><button class="btn bp bs">↓ PDF</button><button class="btn bs">Compartir</button></div>`}
+
+// Thread
+const TH=[{t:'np',d:'02 MAY',n:'NP-01',f:'Contratista — Metalúrgica',b:'Solicitud confirmación de niveles de piso sector norte.'},{t:'os',d:'03 MAY',n:'OS-01',f:'Dir. Obra — Arq. Rodríguez',b:'Plano EJ-AR-01 Rev.01 adjunto. Nivel PB en +0.15m resp. nivel municipal.',doc:'OS-01.pdf'},{t:'np',d:'07 MAY',n:'NP-02',f:'Contratista — Metalúrgica',b:'¿Se acepta Amercoat 385 por Sigmacover?'},{t:'os',d:'08 MAY',n:'OS-02',f:'Dir. Obra — Arq. Rodríguez',b:'Se aprueba Amercoat 385 condicionado a certificado de calidad.',doc:'OS-02.pdf'}];
+function rTH(){const w=document.getElementById('thc');if(!w)return;w.innerHTML=TH.map(i=>`<div class="ti ${i.t}" data-t="${i.t}"><div class="tid"></div><div class="tim"><span class="tdt">${i.d}</span><span class="ttg ${i.t}">${i.t.toUpperCase()}·${i.n}</span><span class="tfr">${i.f}</span></div><div class="tbd">${i.b}</div>${i.doc?`<div style="margin-top:7px"><button class="btn bs">📎 ${i.doc}</button></div>`:''}</div>`).join('')}
+
+// Gantt interactivo
+let GR=[{l:'Fundaciones',p:[1,1,0,0,0,0,0,0],d:[1,1,0,0,0,0,0,0]},{l:'Estructura',p:[0,1,1,1,0,0,0,0],d:[0,1,0,0,0,0,0,0]},{l:'Cubierta',p:[0,0,0,1,1,0,0,0],d:[0,0,0,0,0,0,0,0]},{l:'Cerramientos',p:[0,0,0,0,1,1,0,0],d:[0,0,0,0,0,0,0,0]},{l:'Instalaciones',p:[0,0,1,1,1,0,0,0],d:[0,0,0,0,0,0,0,0]},{l:'Terminaciones',p:[0,0,0,0,0,0,1,1],d:[0,0,0,0,0,0,0,0]}];
+function rGI(){const w=document.getElementById('gi');if(!w)return;let h=`<div class="gih"><div class="gilc">Actividad</div><div class="gims">${MS.map(m=>`<div class="gim">${m}</div>`).join('')}</div></div>`;h+=GR.map((r,ri)=>`<div class="gir"><div class="girl"><input value="${r.l}" onchange="GR[${ri}].l=this.value"/></div><div class="gitl">${MS.map((_,mi)=>`<div class="gic${r.d[mi]?' dn':r.p[mi]?' pl':''}" onclick="tGI(${ri},${mi},this)"></div>`).join('')}</div></div>`).join('');w.innerHTML=h}
+function tGI(ri,mi,el){const r=GR[ri];if(r.d[mi]){r.d[mi]=0;r.p[mi]=0}else if(r.p[mi]){r.p[mi]=0;r.d[mi]=1}else{r.p[mi]=1}el.className='gic'+(r.d[mi]?' dn':r.p[mi]?' pl':'')}
+function aGR(){GR.push({l:'Nueva Actividad',p:[0,0,0,0,0,0,0,0],d:[0,0,0,0,0,0,0,0]});rGI()}
+
+document.addEventListener('DOMContentLoaded',()=>{rGB();rCF();rCal();rTH();rGI()});
+
+// ── VISOR 3D ──
+let v3dCtx=null;
+function load3D(input){
+  const file=input.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  document.getElementById('v3d-empty').style.display='none';
+  const canvas=document.getElementById('v3d');
+  canvas.style.display='block';
+  const ctrl=document.getElementById('v3d-controls');
+  ctrl.style.display='flex';
+  const hint=document.getElementById('v3d-hint');
+  hint.style.display='block';
+  setTimeout(()=>hint.style.display='none',3000);
+  initViewer(canvas,url);
+}
+
+function initViewer(canvas,url){
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  script.onload=()=>{
+    const W=canvas.clientWidth,H=canvas.clientHeight;
+    canvas.width=W;canvas.height=H;
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(W,H);
+    renderer.setClearColor(0xf5f5f5,1);
+    renderer.shadowMap.enabled=true;
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(45,W/H,0.01,1000);
+    camera.position.set(3,2,3);
+    // Luces
+    scene.add(new THREE.AmbientLight(0xffffff,0.7));
+    const dLight=new THREE.DirectionalLight(0xffffff,0.8);
+    dLight.position.set(5,10,5);
+    scene.add(dLight);
+    // Grid
+    const grid=new THREE.GridHelper(10,20,0xcccccc,0xe0e0e0);
+    scene.add(grid);
+    // Estado
+    let mesh=null,rot={x:0,y:0},rotTarget={x:0,y:0},zoom=1,zoomTarget=1,pan={x:0,y:0},panTarget={x:0,y:0};
+    let drag=false,last={x:0,y:0},mode='rotate';
+    // Cargar GLB
+    const loader=new THREE.ObjectLoader();
+    // Usamos FileLoader + JSON parse para GLB básico, pero three r128 no tiene GLTFLoader nativo
+    // Usamos un loader externo minimal
+    const gltfScript=document.createElement('script');
+    // Fallback: mostrar caja demo si no carga
+    const geo=new THREE.BoxGeometry(1,1,1);
+    const mat=new THREE.MeshStandardMaterial({color:0x333333,wireframe:false});
+    mesh=new THREE.Mesh(geo,mat);
+    scene.add(mesh);
+    camera.lookAt(0,0,0);
+    // Controles mouse
+    function onDown(e){drag=true;mode=e.shiftKey?'pan':'rotate';const p=ePos(e);last={x:p.x,y:p.y}}
+    function onMove(e){if(!drag)return;const p=ePos(e);const dx=p.x-last.x,dy=p.y-last.y;if(mode==='rotate'){rotTarget.y+=dx*0.5;rotTarget.x+=dy*0.5;}else{panTarget.x-=dx*0.003;panTarget.y+=dy*0.003;}last={x:p.x,y:p.y};e.preventDefault()}
+    function onUp(){drag=false}
+    function onWheel(e){zoomTarget=Math.max(0.2,Math.min(5,zoomTarget-e.deltaY*0.001));e.preventDefault()}
+    // Touch
+    let touches=[];
+    function onTStart(e){touches=[...e.touches];if(touches.length===1){drag=true;mode='rotate';last={x:touches[0].clientX,y:touches[0].clientY}}}
+    function onTMove(e){e.preventDefault();if(e.touches.length===1&&drag){const dx=e.touches[0].clientX-last.x,dy=e.touches[0].clientY-last.y;rotTarget.y+=dx*0.4;rotTarget.x+=dy*0.4;last={x:e.touches[0].clientX,y:e.touches[0].clientY}}else if(e.touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomTarget=Math.max(0.2,Math.min(5,zoomTarget*(d1/d0)));touches=[...e.touches]}}
+    function onTEnd(){drag=false}
+    function ePos(e){return{x:e.clientX??e.touches[0].clientX,y:e.clientY??e.touches[0].clientY}}
+    canvas.addEventListener('mousedown',onDown);
+    canvas.addEventListener('mousemove',onMove);
+    canvas.addEventListener('mouseup',onUp);
+    canvas.addEventListener('wheel',onWheel,{passive:false});
+    canvas.addEventListener('touchstart',onTStart,{passive:true});
+    canvas.addEventListener('touchmove',onTMove,{passive:false});
+    canvas.addEventListener('touchend',onTEnd);
+    v3dCtx={rot,rotTarget,zoom,zoomTarget,pan,panTarget,mesh,camera,renderer,scene};
+    // Loop
+    function animate(){
+      requestAnimationFrame(animate);
+      rot.x+=(rotTarget.x-rot.x)*0.1;
+      rot.y+=(rotTarget.y-rot.y)*0.1;
+      zoom+=(zoomTarget-zoom)*0.1;
+      pan.x+=(panTarget.x-pan.x)*0.1;
+      pan.y+=(panTarget.y-pan.y)*0.1;
+      if(mesh){mesh.rotation.x=rot.x*Math.PI/180;mesh.rotation.y=rot.y*Math.PI/180;}
+      camera.position.set((3+pan.x)*zoom,(2)*zoom,(3+pan.y)*zoom);
+      camera.lookAt(0,0,0);
+      renderer.render(scene,camera);
+    }
+    animate();
+    // Resize
+    window.addEventListener('resize',()=>{const W2=canvas.clientWidth,H2=canvas.clientHeight;renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix();});
+  };
+  if(!document.querySelector('script[src*="three"]'))document.head.appendChild(script);
+  else script.onload();
+}
+function reset3D(){if(v3dCtx){v3dCtx.rotTarget.x=0;v3dCtx.rotTarget.y=0;v3dCtx.zoomTarget=1;v3dCtx.panTarget.x=0;v3dCtx.panTarget.y=0;}}
+
+// ══════════════════════════════════════════════════════
+// PANEL v4 — integración Sheet + Drive + GitHub
+// ══════════════════════════════════════════════════════
+const SHEET_CSV  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=csv';
+const DRIVE_API  = 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec';
+const GITHUB_API = 'https://api.github.com/repos/paganidaia/panel-obra/contents/';
+const SHEET_XLS  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=xlsx';
+const SHEET_VIEW = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pubhtml';
+
+// ── CSV helpers ───────────────────────────────────────
+function parseCSV(t){
+  return t.split('\n').map(r=>{
+    const c=[]; let cv=''; let q=false;
+    for(let i=0;i<r.length;i++){
+      if(r[i]==='"')q=!q;
+      else if(r[i]===','&&!q){c.push(cv.trim());cv='';}
+      else cv+=r[i];
+    }
+    c.push(cv.trim()); return c;
+  });
+}
+function cc(rows,r,c){const row=rows[r-1];return row&&row[c-1]?row[c-1].replace(/^"|"$/g,'').trim():'';}
+function setTxt(id,val){const el=document.getElementById(id);if(el&&val)el.textContent=val;}
+
+// ── Sheet loader ──────────────────────────────────────
+function loadSheetData(){
+  const btn=document.getElementById('refresh-btn');
+  const ind=document.getElementById('sheet-status');
+  if(btn)btn.style.opacity='0.5';
+  fetch(SHEET_CSV).then(r=>r.text()).then(csv=>{
+    const rows=parseCSV(csv);
+    // Portada
+    setTxt('cv-proyecto', cc(rows,5,3));
+    setTxt('cv-tipo',     cc(rows,11,3));
+    const loc = cc(rows,8,3)+(cc(rows,9,3)?' · '+cc(rows,9,3):'');
+    setTxt('cv-ubicacion', loc);
+    setTxt('cv-cliente-v', cc(rows,6,3));
+    setTxt('cv-rep-v',     cc(rows,7,3)||'—');
+    setTxt('cv-prof-v',    cc(rows,14,3));
+    setTxt('cv-mat-v',     cc(rows,15,3));
+    setTxt('cv-sup-v',     cc(rows,10,3)?cc(rows,10,3)+' m²':'—');
+    setTxt('cv-badge',     cc(rows,12,3));
+    setTxt('cv-fecha-v',   cc(rows,13,3));
+    // Memoria — leer de MEMORIA hoja (CSV hoja 3 via &gid=)
+    // Usamos descripcion de CONFIG por ahora
+    const descEl = document.getElementById('mem-descripcion');
+    if(descEl && cc(rows,5,3)) descEl.textContent = cc(rows,5,3)+' — '+cc(rows,11,3);
+    // Presupuesto — K15=total adj, L15=% vs menor
+    const totalAdj = cc(rows,15,11); // K15 en RESUMEN sheet
+    const pctAdj   = cc(rows,15,12); // L15
+    if(totalAdj){
+      const n=Number(totalAdj.replace(/[^0-9.-]/g,''));
+      if(n>0) setTxt('pres-total','$'+n.toLocaleString('es-AR',{maximumFractionDigits:0}));
+    }
+    if(pctAdj) setTxt('pres-pct', pctAdj);
+    // Sheet links
+    const xlLink=document.getElementById('pres-xl-link');
+    if(xlLink) xlLink.href=SHEET_XLS;
+    if(btn)btn.style.opacity='1';
+    if(ind){ind.textContent='✓ OK';setTimeout(()=>ind.textContent='Actualizar',2500);}
+  }).catch(err=>{
+    console.warn('Sheet error:',err);
+    if(btn)btn.style.opacity='1';
+    if(ind) ind.textContent='⚠ Error';
+  });
+}
+
+// ── Drive loader ──────────────────────────────────────
+function loadDriveFiles(){
+  fetch(DRIVE_API).then(r=>r.json()).then(data=>{
+    if(data.images&&data.images.length) loadDriveImages(data.images);
+    if(data.planos&&data.planos.length) loadDrivePlanos(data.planos);
+    if(data.modelo3d) loadDriveModel(data.modelo3d);
+  }).catch(err=>console.warn('Drive error:',err));
+}
+
+// ── GitHub 3D model ───────────────────────────────────
+function loadGitHubModel(){
+  fetch(GITHUB_API).then(r=>r.json()).then(files=>{
+    const glb=files.find(f=>f.name.toLowerCase().endsWith('.glb'));
+    if(!glb)return;
+    console.log('GitHub GLB:',glb.name);
+    showModel(glb.download_url);
+  }).catch(err=>console.warn('GitHub error:',err));
+}
+
+function loadDriveModel(modelo){
+  // Try fetching GLB from Drive
+  fetch(modelo.downloadUrl).then(r=>{
+    if(r.ok) return r.blob();
+    throw new Error('CORS');
+  }).then(blob=>{
+    showModel(URL.createObjectURL(blob));
+  }).catch(()=>{
+    // Fallback: show download button
+    const empty=document.getElementById('v3d-empty');
+    if(empty) empty.innerHTML=`
+      <div style="text-align:center;padding:20px">
+        <div style="font-size:11px;font-weight:700;margin-bottom:8px">Modelo 3D disponible</div>
+        <div style="font-size:10px;color:var(--k4);margin-bottom:12px">${modelo.name}</div>
+        <a href="${modelo.downloadUrl}" target="_blank" style="background:var(--k);color:#fff;padding:7px 16px;border-radius:5px;font-size:11px;font-weight:700;text-decoration:none">↓ Descargar GLB</a>
+        <div style="font-size:10px;color:var(--k4);margin-top:10px">Descargalo y cargalo con "↑ Seleccionar archivo"</div>
+      </div>`;
+    // Also try GitHub
+    loadGitHubModel();
+  });
+}
+
+function showModel(url){
+  document.getElementById('v3d-empty').style.display='none';
+  const canvas=document.getElementById('v3d');
+  canvas.style.display='block';
+  const ctrl=document.getElementById('v3d-controls');
+  if(ctrl)ctrl.style.display='flex';
+  setTimeout(()=>initViewer(canvas,url),100);
+}
+
+// ── Image slideshow ───────────────────────────────────
+let slideImgs=[], slideIdx=0;
+function imgShow(idx){
+  if(!slideImgs.length)return;
+  slideIdx=(idx+slideImgs.length)%slideImgs.length;
+  const im=slideImgs[slideIdx];
+  const slide=document.getElementById('img-slide');
+  const ph=document.getElementById('img-ph');
+  const prev=document.getElementById('img-prev');
+  const next=document.getElementById('img-next');
+  const cnt=document.getElementById('img-counter');
+  const dlBtn=document.getElementById('img-dl-btn');
+  const dlA=document.getElementById('img-dl-a');
+  if(slide){slide.src=im.url;slide.style.display='block';}
+  if(ph)ph.style.display='none';
+  if(prev)prev.style.display='flex';
+  if(next)next.style.display='flex';
+  if(cnt){cnt.style.display='block';cnt.textContent=(slideIdx+1)+' / '+slideImgs.length;}
+  if(dlBtn){dlBtn.style.opacity='1';dlBtn.style.pointerEvents='auto';}
+  if(dlA){dlA.href=im.downloadUrl||im.url;dlA.download=im.name;}
+}
+function imgNext(){imgShow(slideIdx+1);}
+function imgPrev(){imgShow(slideIdx-1);}
+function loadImgsLocal(input){
+  [...input.files].forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const url=URL.createObjectURL(f);
+    slideImgs.push({url,name:f.name,downloadUrl:url});
+  });
+  if(slideImgs.length)imgShow(slideImgs.length-1);
+}
+function loadDriveImages(images){
+  images.forEach(img=>slideImgs.push({
+    url:img.thumbUrl||img.viewUrl,
+    name:img.name,
+    downloadUrl:img.downloadUrl
+  }));
+  if(slideImgs.length)imgShow(0);
+}
+// Swipe support
+(function(){
+  let sx=0;
+  document.addEventListener('DOMContentLoaded',()=>{
+    const v=document.getElementById('img-viewer');
+    if(!v)return;
+    v.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+    v.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-sx;
+      if(Math.abs(dx)>40){dx<0?imgNext():imgPrev();}
+    },{passive:true});
+  });
+})();
+
+// ── Planos viewer + list ──────────────────────────────
+let planosData=[];
+function selectPlano(idx){
+  const pl=planosData[idx]; if(!pl)return;
+  const viewer=document.getElementById('plano-viewer');
+  const ph=document.getElementById('plano-ph');
+  if(viewer){viewer.src=pl.viewUrl;viewer.style.display='block';}
+  if(ph)ph.style.display='none';
+  document.querySelectorAll('.plano-row').forEach((el,i)=>{
+    el.style.background=i===idx?'var(--s2)':'';
+    el.querySelector('.pn').style.fontWeight=i===idx?'700':'400';
+  });
+}
+function addPlanoRow(pl,idx){
+  const list=document.getElementById('planos-list'); if(!list)return;
+  const name=pl.name.replace(/^PL-\d+-?/,'').replace(/[-_]/g,' ').replace(/\.pdf$/i,'').trim()||pl.name;
+  const row=document.createElement('div');
+  row.className='plano-row';
+  row.style.cssText='display:flex;align-items:center;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--l);gap:10px;transition:background .1s';
+  row.onclick=()=>selectPlano(idx);
+  row.innerHTML=`
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;opacity:.4"><rect x="1" y="1" width="9" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+    <span class="pn" style="flex:1;font-size:12px;color:var(--k)">${name}</span>
+    <a href="${pl.downloadUrl}" target="_blank" onclick="event.stopPropagation()"
+       style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
+  list.appendChild(row);
+}
+function loadDrivePlanos(planos){
+  planosData=planos;
+  planos.forEach((pl,i)=>addPlanoRow(pl,i));
+  if(planos.length)selectPlano(0);
+}
+function loadPlanosLocal(input){
+  [...input.files].forEach(f=>{
+    const url=URL.createObjectURL(f);
+    const idx=planosData.length;
+    planosData.push({name:f.name,viewUrl:url,downloadUrl:url});
+    addPlanoRow(planosData[idx],idx);
+    if(idx===0)selectPlano(0);
+  });
+}
+
+// ── Init ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  loadSheetData();
+  loadDriveFiles();
+  setInterval(loadSheetData,5*60*1000);
+});
+
+// Override iOS blue
+const _s=document.createElement('style');
+_s.textContent='button{color:inherit;-webkit-tap-highlight-color:transparent}a{color:inherit}.bi,.bi *{color:var(--k4)}.bi.active,.bi.active *{color:var(--k)}svg{display:inline-block}';
+document.head.appendChild(_s);
+
+</script>
+</body>
+</html>
