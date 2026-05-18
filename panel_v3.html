@@ -931,22 +931,15 @@ function loadGitHubModel(){
     .then(files=>{
       const glb = files.find(f=>f.name.toLowerCase().endsWith('.glb'));
       if(!glb){ console.log('No GLB found'); return; }
-      console.log('Found GLB:', glb.name, glb.download_url);
-      const canvas = document.getElementById('v3d-canvas');
-      if(!canvas) return;
-      // Hide ALL placeholders in the 3D wrapper
-      const wrap = canvas.closest('.card') || canvas.parentElement;
-      wrap.querySelectorAll('.v3d-ph, [class*="ph"]').forEach(el=>el.style.display='none');
-      // Also hide any div that has "Cargar modelo" text
-      wrap.querySelectorAll('div').forEach(el=>{
-        if(el.textContent.includes('Cargar modelo 3D') && !el.querySelector('canvas'))
-          el.style.display='none';
-      });
-      // Show canvas with proper size
-      canvas.style.display = 'block';
-      canvas.style.width   = '100%';
-      canvas.style.height  = '400px';
-      // Small delay to ensure layout is complete
+      console.log('Found GLB:', glb.name);
+      // Use existing load3D logic with correct element IDs
+      document.getElementById('v3d-empty').style.display='none';
+      const canvas=document.getElementById('v3d');
+      canvas.style.display='block';
+      const ctrl=document.getElementById('v3d-controls');
+      if(ctrl)ctrl.style.display='flex';
+      const hint=document.getElementById('v3d-hint');
+      if(hint){hint.style.display='flex';hint.textContent='Cargando modelo...';}
       setTimeout(()=>initViewer(canvas, glb.download_url), 100);
     })
     .catch(err=>console.warn('GitHub API error:',err));
