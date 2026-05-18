@@ -2,20 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Panel Centenario</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--k:#0a0a0a;--k2:#333;--k3:#666;--k4:#999;--l:#e0e0e0;--lm:#c4c4c4;--s:#f5f5f5;--s2:#ebebeb;--w:#fff;--r:8px;--f:system-ui,sans-serif}
-html,body{height:100%;overflow:hidden;font-family:var(--f);font-size:14px;color:var(--k);background:#f5f5f5 !important}
+html,body{height:100%;overflow:hidden;font-family:var(--f);font-size:14px;color:var(--k);background:var(--s)}
 .app{display:flex;height:100vh;overflow:hidden}
 
 /* SIDEBAR */
 .sb{width:240px;min-width:240px;background:var(--w);border-right:1px solid var(--l);overflow-y:auto;z-index:40;transition:transform .25s}
-.brand{padding:18px 16px 14px;border-bottom:1px solid var(--l);background:#ffffff !important}
+.brand{padding:18px 16px 14px;border-bottom:1px solid var(--l)}
 .bn{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--k4);margin-bottom:4px}
 .bt{font-size:13px;font-weight:800;color:var(--k)}
 .bm{font-size:10px;color:var(--k4);margin-top:2px}
@@ -71,18 +69,18 @@ html,body{height:100%;overflow:hidden;font-family:var(--f);font-size:14px;color:
 hr{border:none;border-top:1px solid var(--l);margin:14px 0}
 
 /* COVER */
-.cv{background:#ffffff !important;border-radius:var(--r);overflow:hidden;border:1px solid var(--l);box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.cvt{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--l);flex-wrap:wrap;gap:6px}
+.cv{background:#ffffff;border-radius:var(--r);overflow:hidden}
+.cvt{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(10,10,10,.35);flex-wrap:wrap;gap:6px}
 .cve{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,10,10,.35)}
-.cvp{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,10,.3);padding:2px 7px;border:1px solid var(--l);border-radius:3px}
+.cvp{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,10,.35);padding:2px 7px;border:1px solid rgba(10,10,10,.35);border-radius:3px}
 .cvc{padding:32px 20px 24px}
-.cvty{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(10,10,10,.28);margin-bottom:10px}
+.cvty{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:10px}
 .cvn{font-size:clamp(38px,9vw,72px);font-weight:800;letter-spacing:-.04em;color:var(--k);line-height:.93;margin-bottom:14px}
-.cvl{font-size:12px;color:rgba(10,10,10,.4)}
-.cvg{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--l);background:var(--s)}
-.cvc2{padding:12px 14px;border-right:1px solid var(--l)}
+.cvl{font-size:12px;color:rgba(10,10,10,.35)}
+.cvg{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(10,10,10,.35)}
+.cvc2{padding:12px 14px;border-right:1px solid rgba(10,10,10,.35)}
 .cvc2:nth-child(3n){border-right:none}
-.cvlb{font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,10,.28);margin-bottom:3px}
+.cvlb{font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:3px}
 .cvv{font-size:12px;font-weight:700;color:var(--k);line-height:1.2;margin-bottom:1px}
 .cvs{font-size:10px;color:rgba(10,10,10,.35)}
 
@@ -114,8 +112,6 @@ tbody tr:hover{background:rgba(10,10,10,.025)}
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:4px;padding:7px 12px;border:1.5px solid var(--lm);background:var(--w);border-radius:5px;font-family:var(--f);font-size:11px;font-weight:700;cursor:pointer;color:var(--k2);transition:all .12s;white-space:nowrap}
 .btn:hover{border-color:var(--k);color:var(--k)}
-.dl-btn{transition:opacity .15s}
-.img-ph:active{background:var(--s2)}
 .bp{background:var(--k);border-color:var(--k);color:#fff}
 .bp:hover{background:var(--k2)}
 .bs{padding:4px 8px;font-size:10px}
@@ -242,54 +238,36 @@ tbody tr:hover{background:rgba(10,10,10,.025)}
   .sb.open{transform:translateX(0)}
   .mb{display:flex}
   .main{height:100vh}
-  .in{padding:12px 11px 72px}
-  .st{font-size:15px}
-  .ig,.ccg{grid-template-columns:1fr 1fr}
-  .kr{grid-template-columns:1fr 1fr}
-  .kv{font-size:18px}
-  table{min-width:260px;font-size:11px}
-  th{font-size:8px;padding:5px 7px}
-  td{padding:6px 7px;font-size:11px}
+  .in{padding:14px 13px 68px}
+  .st{font-size:16px}
+  .ig,.ccg,.kr{grid-template-columns:1fr 1fr}
+  table{min-width:280px}
   .cvg{grid-template-columns:1fr 1fr}
-  .cvn{font-size:clamp(28px,8vw,52px)}
   .caw{flex-direction:column}
   .cal,.mp{min-width:0;width:100%}
   .gilc,.girl{min-width:105px;width:105px}
-  .gih,.gir{min-width:400px}
+  .gih,.gir{min-width:420px}
   .ts{display:none}
-  /* On mobile show only primary button in doc list */
-  .dac{gap:4px}
-  .dac .btn.bs:not(.bp){font-size:9px;padding:4px 7px}
-  /* Bottom nav */
+  .dac .btn:not(.bp){display:none}
   .bnav{display:flex;position:fixed;bottom:0;left:0;right:0;height:56px;background:var(--w);border-top:1px solid var(--l);z-index:30;align-items:stretch}
-  .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;border:none;background:none;color:var(--k4);-webkit-tap-highlight-color:transparent}
+  .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;border:none;background:none}
   .bi.active{background:rgba(10,10,10,.04)}
-  .bii{font-size:17px;line-height:1;color:inherit}
+  .bii{font-size:17px;line-height:1}
   .bil{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--k4)}
   .bi.active .bil{color:var(--k);font-weight:800}
-  /* 3D viewer full width on mobile */
-  #v3d-wrap{aspect-ratio:4/3}
-  /* Row buttons wrap nicely */
-  .row{gap:5px}
-  .btn{font-size:10px;padding:6px 10px}
-  /* Cover already light */
-  /* Bottom nav icons — use system color not blue */
-  .bil{color:var(--k3)}
-  .bi.active .bii svg{stroke:var(--k)}
-  .bi .bii svg{stroke:var(--k4)}
+  .kr{grid-template-columns:1fr 1fr}
+  .kv{font-size:18px}
+  table{font-size:11px}
+  .cv{background:#ffffff !important}
+  button{color:inherit;-webkit-tap-highlight-color:transparent}
+  .bi,.bi *{color:var(--k4)}
+  .bi.active,.bi.active *{color:var(--k)}
 }
 @media(min-width:641px) and (max-width:900px){
   .sb{width:200px;min-width:200px}
   .in{padding:18px 18px 44px}
   .kr{grid-template-columns:1fr 1fr}
 }
-
-/* Force B&W — override iOS Safari blue defaults */
-button{color:inherit;-webkit-tap-highlight-color:transparent}
-a{color:inherit}
-.bi,.bi *{color:var(--k4)}
-.bi.active,.bi.active *{color:var(--k)}
-svg{display:inline-block}
 </style>
 </head>
 <body>
@@ -352,7 +330,7 @@ svg{display:inline-block}
           <div class="cvc2"><div class="cvlb">Superficie</div><div class="cvv" id="cv-sup-v">1.850 m²</div><div class="cvs">PB + entresuelo</div></div>
           <div class="cvc2"><div class="cvlb">Plazo</div><div class="cvv">8 meses</div><div class="cvs">Inicio Jun 2026</div></div>
           <div class="cvc2"><div class="cvlb">Emisión</div><div class="cvv" id="cv-fecha-v">10 May 2026</div><div class="cvs">Visado CAPBA</div></div>
-          <div class="cvc2"><div class="cvlb">Estado</div><div class="cvv" id="cv-estado-v">Anteproyecto</div><div class="cvs">Etapa activa</div></div>
+          <div class="cvc2"><div class="cvlb">Estado</div><div class="cvv">Anteproyecto</div><div class="cvs">Etapa activa</div></div>
         </div>
       </div>
     </div>
@@ -377,18 +355,7 @@ svg{display:inline-block}
 
     <div class="sec" id="a3">
       <div class="sh"><span class="sn">03/</span><h2 class="st">Memoria Descriptiva</h2></div>
-      <div class="card" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:0">
-          <div class="ch">Descripción</div>
-          <p class="cb">Nave industrial <b>12×9×5,5 m</b> (108 m² cubiertos), 6 m de altura en cumbrera. Depósito del Museo Centenario. Contrapropuesta técnica para optimizar seguridad y costos.</p>
-        </div>
-        <div style="flex-shrink:0">
-          <a id="mem-doc-link" href="#" onclick="dlDoc(event)" class="btn bp" style="text-decoration:none;display:inline-flex;align-items:center;gap:5px">
-            <span>↓</span> Memoria .doc
-          </a>
-          <div style="font-size:9px;color:var(--k4);margin-top:4px;text-align:center">Google Docs</div>
-        </div>
-      </div>
+      <div class="card"><div class="ch">Descripción</div><p class="cb">Nave industrial <b>12×9×5,5 m</b> (108 m² cubiertos), 6 m de altura en cumbrera. Depósito del Museo Centenario. Contrapropuesta técnica para optimizar seguridad y costos.</p></div>
       <div class="card">
         <div class="ch">Sistema Constructivo</div>
         <div class="tw"><table><thead><tr><th>Elemento</th><th>Especificación</th></tr></thead><tbody>
@@ -438,13 +405,13 @@ svg{display:inline-block}
         </div>
       </div>
 
-      <!-- Renders / Imágenes -->
+      <!-- Imágenes -->
       <div class="card">
         <div class="ch">Renders y Fotografías</div>
         <div id="img-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:7px;margin-bottom:10px">
           <label class="img-ph" style="aspect-ratio:4/3;background:var(--s);border:2px dashed var(--lm);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
             <span style="font-size:22px;opacity:.2">+</span>
-            <span style="font-size:9px;font-weight:700;color:var(--k4)">Agregar imagen</span>
+            <span style="font-size:9px;font-weight:700;color:var(--k4)">Agregar</span>
             <input type="file" id="img-input" accept="image/*" multiple style="display:none" onchange="loadImgs(this)">
           </label>
         </div>
@@ -452,33 +419,42 @@ svg{display:inline-block}
           <label class="btn bp" style="cursor:pointer">↑ Cargar imágenes<input type="file" accept="image/*" multiple style="display:none" onchange="loadImgs(this)"></label>
         </div>
       </div>
-
       <!-- Lightbox -->
       <div id="lbox" onclick="closeLbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px">
-        <button onclick="event.stopPropagation();closeLbox()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:8px">✕</button>
-        <img id="lbox-img" src="" onclick="event.stopPropagation()" style="max-width:94vw;max-height:78vh;border-radius:6px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.6)">
+        <button onclick="event.stopPropagation();closeLbox()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:8px">✕</button>
+        <img id="lbox-img" src="" onclick="event.stopPropagation()" style="max-width:94vw;max-height:78vh;border-radius:6px;object-fit:contain">
         <div onclick="event.stopPropagation()" style="display:flex;gap:10px;align-items:center">
           <button onclick="lboxPrev()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:9px 16px;border-radius:5px;cursor:pointer;font-size:18px">◀</button>
-          <a id="lbox-dl" download style="background:#fff;color:#000;padding:9px 18px;border-radius:5px;font-size:11px;font-weight:800;text-decoration:none;letter-spacing:.05em">↓ DESCARGAR</a>
+          <a id="lbox-dl" download style="background:#fff;color:#000;padding:9px 18px;border-radius:5px;font-size:11px;font-weight:800;text-decoration:none">↓ DESCARGAR</a>
           <button onclick="lboxNext()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:9px 16px;border-radius:5px;cursor:pointer;font-size:18px">▶</button>
         </div>
         <div id="lbox-name" style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.05em"></div>
       </div>
-
     </div>
 
     <div class="sec" id="a5">
       <div class="sh"><span class="sn">05/</span><h2 class="st">Planos</h2></div>
-      <div class="card"><div class="ch">Documentación Anteproyecto</div>
-        <div class="dl">
-          <div class="di"><div class="dic">📄</div><div class="din"><div class="dnm">AP-P-01 — Planta General</div><div class="dmt">PDF · 2.1 MB · Rev.00 · 05/05</div></div><div class="dac"><button class="btn bs" onclick="prvPDF('AP-P-01 — Planta General')">Vista</button><button class="btn bp bs">↓ PDF</button><button class="btn bs" title="Descargar DWG">↓ DWG</button></div></div>
-          <div class="di"><div class="dic">📄</div><div class="din"><div class="dnm">AP-C-01 — Corte A-A'</div><div class="dmt">PDF · 1.4 MB · Rev.00 · 05/05</div></div><div class="dac"><button class="btn bs" onclick="prvPDF('AP-C-01 — Corte A-A'')">Vista</button><button class="btn bp bs">↓ PDF</button><button class="btn bs" title="Descargar DWG">↓ DWG</button></div></div>
-          <div class="di"><div class="dic">📄</div><div class="din"><div class="dnm">AP-E-01 — Elevaciones</div><div class="dmt">PDF · 1.8 MB · Rev.00 · 07/05</div></div><div class="dac"><button class="btn bs" onclick="prvPDF('AP-E-01 — Elevaciones')">Vista</button><button class="btn bp bs">↓ PDF</button><button class="btn bs" title="Descargar DWG">↓ DWG</button></div></div>
-          <div class="di"><div class="dic">📄</div><div class="din"><div class="dnm">AP-ES-01 — Esquema Estructural</div><div class="dmt">PDF · 0.9 MB · Rev.00 · 07/05</div></div><div class="dac"><button class="btn bs" onclick="prvPDF('AP-ES-01 — Esquema Estructural')">Vista</button><button class="btn bp bs">↓ PDF</button><button class="btn bs" title="Descargar DWG">↓ DWG</button></div></div>
+
+      <!-- Plano principal (Proyecto.pdf) — visor inline -->
+      <div class="card" id="plano-principal-card" style="display:none">
+        <div class="ch">Plano del Proyecto</div>
+        <div style="width:100%;background:#f0f0f0;border-radius:6px;overflow:hidden;margin-bottom:10px">
+          <iframe id="plano-principal-iframe" src="" style="width:100%;height:480px;border:none;display:block" allowfullscreen></iframe>
         </div>
         <div class="row">
-          <label class="btn bp" style="cursor:pointer">↑ Cargar<input type="file" accept=".pdf,.dwg,.dxf" multiple style="display:none" onchange="loadPlanos(this)"></label>
-          <button class="btn">↓ Todo ZIP</button>
+          <a id="plano-principal-dl" href="#" target="_blank" class="btn bp" style="text-decoration:none">↓ Descargar PDF</a>
+          <span id="plano-principal-nombre" style="font-size:10px;color:var(--k4);align-self:center"></span>
+        </div>
+      </div>
+
+      <!-- Resto de planos — solo descarga -->
+      <div class="card">
+        <div class="ch">Documentación</div>
+        <div class="dl" id="planos-dl">
+          <!-- se carga desde Drive -->
+        </div>
+        <div class="row">
+          <label class="btn bp" style="cursor:pointer">↑ Cargar plano<input type="file" accept=".pdf,.dwg,.dxf" multiple style="display:none" onchange="loadPlanos(this)"></label>
         </div>
       </div>
     </div>
@@ -503,11 +479,7 @@ svg{display:inline-block}
           <tr><td>8</td><td>Piso Industrial</td><td style="text-align:right">$7.493.600</td><td style="text-align:right"><span class="bm">8,0%</span></td></tr>
           <tr class="rt"><td colspan="2">Total s/IVA</td><td style="text-align:right">$93.667.766</td><td style="text-align:right">100%</td></tr>
         </tbody></table></div>
-        <div class="row">
-          <button class="btn bp">↓ PDF</button>
-          <a id="sheet-link" href="https://docs.google.com/spreadsheets/d/TU-ID-AQUI/export?format=xlsx" target="_blank" class="btn" style="text-decoration:none">↓ Excel</a>
-          <a href="https://docs.google.com/spreadsheets/d/TU-ID-AQUI" target="_blank" class="btn" style="text-decoration:none;font-size:10px">📊 Ver Sheet</a>
-        </div>
+        <div class="row"><button class="btn bp">↓ PDF</button><button class="btn">↓ Excel</button></div>
       </div>
     </div>
 
@@ -658,40 +630,9 @@ svg{display:inline-block}
 </main>
 
 <nav class="bnav">
-  <button class="bi active" onclick="swM('a',this)">
-    <span class="bii">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <path d="M3 10.5L11 3L19 10.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        <rect x="3" y="10.5" width="16" height="8.5" rx="1" stroke="currentColor" stroke-width="1.6"/>
-        <rect x="8" y="14" width="6" height="5" stroke="currentColor" stroke-width="1.4"/>
-      </svg>
-    </span>
-    <span class="bil">Proyecto</span>
-  </button>
-  <button class="bi" onclick="swM('b',this)">
-    <span class="bii">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <rect x="4" y="2" width="14" height="18" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
-        <line x1="7.5" y1="7.5" x2="14.5" y2="7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        <line x1="7.5" y1="11" x2="14.5" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        <line x1="7.5" y1="14.5" x2="12" y2="14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-    </span>
-    <span class="bil">Gestión</span>
-  </button>
-  <button class="bi" onclick="swM('c',this)">
-    <span class="bii">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.6"/>
-        <circle cx="11" cy="11" r="2" fill="currentColor"/>
-        <line x1="11" y1="2.5" x2="11" y2="6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="19.5" y1="11" x2="15.5" y2="11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="11" y1="19.5" x2="11" y2="15.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="2.5" y1="11" x2="6.5" y2="11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-    </span>
-    <span class="bil">Dirección</span>
-  </button>
+  <button class="bi active" onclick="swM('a',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="11" width="16" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M2 11L10 3L18 11" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="7.5" y="14" width="5" height="4" stroke="currentColor" stroke-width="1.5"/></svg></span><span class="bil">Proyecto</span></button>
+  <button class="bi" onclick="swM('b',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="12" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="10" x2="13" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="13" x2="11" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="bil">Gestión</span></button>
+  <button class="bi" onclick="swM('c',this)"><span class="bii"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><line x1="10" y1="2.5" x2="10" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="10" x2="11.5" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="bil">Dirección</span></button>
 </nav>
 </div>
 
@@ -736,401 +677,109 @@ function aGR(){GR.push({l:'Nueva Actividad',p:[0,0,0,0,0,0,0,0],d:[0,0,0,0,0,0,0
 
 document.addEventListener('DOMContentLoaded',()=>{rGB();rCF();rCal();rTH();rGI()});
 
+// ── VISOR 3D ──
+let v3dCtx=null;
+function load3D(input){
+  const file=input.files[0];if(!file)return;
+  const url=URL.createObjectURL(file);
+  document.getElementById('v3d-empty').style.display='none';
+  const canvas=document.getElementById('v3d');
+  canvas.style.display='block';
+  const ctrl=document.getElementById('v3d-controls');
+  ctrl.style.display='flex';
+  const hint=document.getElementById('v3d-hint');
+  hint.style.display='block';
+  setTimeout(()=>hint.style.display='none',3000);
+  initViewer(canvas,url);
+}
 
+function initViewer(canvas,url){
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  script.onload=()=>{
+    const W=canvas.clientWidth,H=canvas.clientHeight;
+    canvas.width=W;canvas.height=H;
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(W,H);
+    renderer.setClearColor(0xf5f5f5,1);
+    renderer.shadowMap.enabled=true;
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(45,W/H,0.01,1000);
+    camera.position.set(3,2,3);
+    // Luces
+    scene.add(new THREE.AmbientLight(0xffffff,0.7));
+    const dLight=new THREE.DirectionalLight(0xffffff,0.8);
+    dLight.position.set(5,10,5);
+    scene.add(dLight);
+    // Grid
+    const grid=new THREE.GridHelper(10,20,0xcccccc,0xe0e0e0);
+    scene.add(grid);
+    // Estado
+    let mesh=null,rot={x:0,y:0},rotTarget={x:0,y:0},zoom=1,zoomTarget=1,pan={x:0,y:0},panTarget={x:0,y:0};
+    let drag=false,last={x:0,y:0},mode='rotate';
+    // Cargar GLB
+    const loader=new THREE.ObjectLoader();
+    // Usamos FileLoader + JSON parse para GLB básico, pero three r128 no tiene GLTFLoader nativo
+    // Usamos un loader externo minimal
+    const gltfScript=document.createElement('script');
+    // Fallback: mostrar caja demo si no carga
+    const geo=new THREE.BoxGeometry(1,1,1);
+    const mat=new THREE.MeshStandardMaterial({color:0x333333,wireframe:false});
+    mesh=new THREE.Mesh(geo,mat);
+    scene.add(mesh);
+    camera.lookAt(0,0,0);
+    // Controles mouse
+    function onDown(e){drag=true;mode=e.shiftKey?'pan':'rotate';const p=ePos(e);last={x:p.x,y:p.y}}
+    function onMove(e){if(!drag)return;const p=ePos(e);const dx=p.x-last.x,dy=p.y-last.y;if(mode==='rotate'){rotTarget.y+=dx*0.5;rotTarget.x+=dy*0.5;}else{panTarget.x-=dx*0.003;panTarget.y+=dy*0.003;}last={x:p.x,y:p.y};e.preventDefault()}
+    function onUp(){drag=false}
+    function onWheel(e){zoomTarget=Math.max(0.2,Math.min(5,zoomTarget-e.deltaY*0.001));e.preventDefault()}
+    // Touch
+    let touches=[];
+    function onTStart(e){touches=[...e.touches];if(touches.length===1){drag=true;mode='rotate';last={x:touches[0].clientX,y:touches[0].clientY}}}
+    function onTMove(e){e.preventDefault();if(e.touches.length===1&&drag){const dx=e.touches[0].clientX-last.x,dy=e.touches[0].clientY-last.y;rotTarget.y+=dx*0.4;rotTarget.x+=dy*0.4;last={x:e.touches[0].clientX,y:e.touches[0].clientY}}else if(e.touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomTarget=Math.max(0.2,Math.min(5,zoomTarget*(d1/d0)));touches=[...e.touches]}}
+    function onTEnd(){drag=false}
+    function ePos(e){return{x:e.clientX??e.touches[0].clientX,y:e.clientY??e.touches[0].clientY}}
+    canvas.addEventListener('mousedown',onDown);
+    canvas.addEventListener('mousemove',onMove);
+    canvas.addEventListener('mouseup',onUp);
+    canvas.addEventListener('wheel',onWheel,{passive:false});
+    canvas.addEventListener('touchstart',onTStart,{passive:true});
+    canvas.addEventListener('touchmove',onTMove,{passive:false});
+    canvas.addEventListener('touchend',onTEnd);
+    v3dCtx={rot,rotTarget,zoom,zoomTarget,pan,panTarget,mesh,camera,renderer,scene};
+    // Loop
+    function animate(){
+      requestAnimationFrame(animate);
+      rot.x+=(rotTarget.x-rot.x)*0.1;
+      rot.y+=(rotTarget.y-rot.y)*0.1;
+      zoom+=(zoomTarget-zoom)*0.1;
+      pan.x+=(panTarget.x-pan.x)*0.1;
+      pan.y+=(panTarget.y-pan.y)*0.1;
+      if(mesh){mesh.rotation.x=rot.x*Math.PI/180;mesh.rotation.y=rot.y*Math.PI/180;}
+      camera.position.set((3+pan.x)*zoom,(2)*zoom,(3+pan.y)*zoom);
+      camera.lookAt(0,0,0);
+      renderer.render(scene,camera);
+    }
+    animate();
+    // Resize
+    window.addEventListener('resize',()=>{const W2=canvas.clientWidth,H2=canvas.clientHeight;renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix();});
+  };
+  if(!document.querySelector('script[src*="three"]'))document.head.appendChild(script);
+  else script.onload();
+}
+function reset3D(){if(v3dCtx){v3dCtx.rotTarget.x=0;v3dCtx.rotTarget.y=0;v3dCtx.zoomTarget=1;v3dCtx.panTarget.x=0;v3dCtx.panTarget.y=0;}}
 
-// ══════════════════════════════════════════════════════
-// CONFIGURACIÓN — editá estas URLs con tus archivos reales
-// ══════════════════════════════════════════════════════
 const CONFIG = {
   sheetCSV    : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=csv',
-  driveApiUrl : 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec', // ← pegar URL después de deployar
-  memoriaDocUrl  : 'https://docs.google.com/document/d/TU-ID-MEMORIA/export?format=docx',
+  driveApiUrl : 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec',
+  modelGLB    : 'https://paganidaia.github.io/panel-obra/modelo.glb',
   presupuestoUrl : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=xlsx',
-  presupuestoView: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pubhtml',
 };
 
-// ══════════════════════════════════════════════════════
-// DRIVE INTEGRATION — carga archivos desde Drive
-// ══════════════════════════════════════════════════════
-function loadDriveFiles() {
-  if (!CONFIG.driveApiUrl || CONFIG.driveApiUrl.startsWith('PEGAR')) {
-    console.log('Drive API URL not configured yet');
-    return;
-  }
-  fetch(CONFIG.driveApiUrl)
-    .then(r => r.json())
-    .then(data => {
-      loadDriveImages(data.images || []);
-      loadDrivePlanos(data.planos || []);
-      if (data.modelo3d) loadDrive3D(data.modelo3d);
-    })
-    .catch(err => console.warn('Drive load error:', err));
-}
-
-function loadDriveImages(images) {
-  if (!images.length) return;
-  const grid = document.getElementById('img-grid');
-  if (!grid) return;
-  const ph = grid.querySelector('.img-ph');
-  if (ph) ph.remove();
-  images.forEach((img, i) => {
-    if (grid.querySelector(`[data-id="${img.id}"]`)) return;
-    const idx = imgs.length;
-    const tile = document.createElement('div');
-    tile.dataset.id = img.id;
-    tile.style.cssText = 'position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
-    tile.onclick = () => openLbox(idx);
-    // Use thumbnail URL — fallback to view URL if thumbnail fails
-    const thumbSrc = img.thumbUrl || img.viewUrl;
-    tile.innerHTML = `
-      <img src="${thumbSrc}" style="width:100%;height:100%;object-fit:cover" loading="lazy"
-           onerror="this.src='${img.viewUrl}'">
-      <div style="position:absolute;bottom:4px;right:4px">
-        <a href="${img.downloadUrl}" target="_blank" onclick="event.stopPropagation()"
-           style="background:rgba(255,255,255,.9);border-radius:3px;padding:2px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none">↓</a>
-      </div>`;
-    grid.appendChild(tile);
-    imgs.push({url: thumbSrc, name: img.name, downloadUrl: img.downloadUrl});
-  });
-}
-
-function loadDrivePlanos(planos) {
-  if (!planos.length) return;
-  const dl = document.querySelector('#a5 .dl');
-  if (!dl) return;
-  dl.querySelectorAll('.di[data-drive]').forEach(el => el.remove());
-  planos.forEach(pl => {
-    // Clean display name
-    const displayName = pl.name
-      .replace(/^PL-\d+-?/,'')
-      .replace(/[-_]/g,' ')
-      .replace(/\.pdf$/i,'')
-      .replace(/\.svg$/i,'')
-      .trim() || pl.name;
-    const el = document.createElement('div');
-    el.className = 'di'; el.dataset.drive = '1';
-    el.innerHTML = `
-      <div class="dic">📄</div>
-      <div class="din">
-        <div class="dnm">${displayName}</div>
-        <div class="dmt">PDF · ${pl.size}</div>
-      </div>
-      <div class="dac">
-        <button class="btn bs" onclick="openPDFPreview('${pl.name}','${pl.viewUrl}')">Vista</button>
-        <a href="${pl.downloadUrl}" target="_blank" class="btn bp bs" style="text-decoration:none">↓ PDF</a>
-      </div>`;
-    dl.insertBefore(el, dl.lastElementChild);
-  });
-}
-
-function loadDrive3D(modelo) {
-  const canvas = document.getElementById('v3d-canvas');
-  if (!canvas || !modelo) return;
-  // Use direct download URL for GLB
-  const url = modelo.downloadUrl;
-  initViewer(canvas, url);
-}
-
-function openPDFPreview(name, viewUrl) {
-  const modal = document.createElement('div');
-  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px';
-  modal.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;max-width:900px">
-      <span style="color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em">${name}</span>
-      <button onclick="this.closest('div[style]').remove()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px">✕</button>
-    </div>
-    <iframe src="${viewUrl}" style="width:100%;max-width:900px;height:78vh;border:none;border-radius:6px;background:#fff" allowfullscreen></iframe>
-    <a href="${viewUrl.replace('/preview','/view')}" target="_blank" style="color:#fff;font-size:10px;text-decoration:none;border:1px solid rgba(255,255,255,.25);padding:5px 14px;border-radius:5px">↗ Abrir en Drive</a>`;
-  document.body.appendChild(modal);
-}
-
-// Load Drive files on startup
-document.addEventListener('DOMContentLoaded', () => {
-  const sl=document.getElementById('sheet-link');
-  if(sl) sl.href=CONFIG.presupuestoUrl;
-  loadSheetData();
-  loadDriveFiles();
-  setInterval(loadSheetData, 5 * 60 * 1000);
-});
-
-
-
-// ── MEMORIA — descargar doc ────────────────────────────
-function dlDoc(e){
-  e.preventDefault();
-  const a=document.createElement('a');
-  a.href=CONFIG.memoriaDocUrl;
-  a.download='Memoria_Descriptiva.docx';
-  a.target='_blank';
-  a.click();
-}
-
-// ── PRESUPUESTO — links dinámicos ─────────────────────
-document.addEventListener('DOMContentLoaded',()=>{
-  const sl=document.getElementById('sheet-link');
-  if(sl) sl.href=CONFIG.presupuestoUrl;
-});
-
-// ── PLANOS — cargar y previsualizar PDF/DWG ───────────
-function loadPlanos(input){
-  const files=[...input.files];
-  const dl=document.querySelector('#a5 .dl');
-  if(!dl)return;
-  files.forEach(f=>{
-    const ext=f.name.split('.').pop().toUpperCase();
-    const url=URL.createObjectURL(f);
-    const el=document.createElement('div');
-    el.className='di';
-    el.innerHTML=`
-      <div class="dic">${ext==='DWG'||ext==='DXF'?'📐':'📄'}</div>
-      <div class="din">
-        <div class="dnm">${f.name}</div>
-        <div class="dmt">${ext} · ${(f.size/1024/1024).toFixed(1)} MB · Cargado hoy</div>
-      </div>
-      <div class="dac">
-        ${ext==='PDF'?`<button class="btn bs" onclick="prvPDF('${f.name}',event,this)" data-url="${url}">Vista</button>`:''}
-        <a href="${url}" download="${f.name}" class="btn bp bs">↓ ${ext}</a>
-      </div>`;
-    dl.insertBefore(el,dl.lastElementChild);
-  });
-}
-
-// ── PDF PREVIEW modal ─────────────────────────────────
-function prvPDF(name,e,btn){
-  const url=btn&&btn.dataset.url?btn.dataset.url:null;
-  if(!url){alert('Enlace de previsualización no disponible. Descargá el archivo para verlo.');return;}
-  const modal=document.createElement('div');
-  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px';
-  modal.innerHTML=`
-    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;max-width:860px">
-      <span style="color:#fff;font-size:11px;font-weight:700">${name}</span>
-      <button onclick="this.closest('[style]').remove()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px">✕</button>
-    </div>
-    <iframe src="${url}" style="width:100%;max-width:860px;height:75vh;border:none;border-radius:6px;background:#fff"></iframe>
-    <a href="${url}" download="${name}" style="color:#fff;font-size:11px;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:5px">↓ Descargar</a>`;
-  document.body.appendChild(modal);
-}
-
-// ── IMÁGENES — galería con lightbox ──────────────────
-let imgs=[];let lboxIdx=0;
-
-function loadImgs(input){
-  const files=[...input.files];
-  files.forEach(f=>{
-    if(!f.type.startsWith('image/'))return;
-    const url=URL.createObjectURL(f);
-    const idx=imgs.length;
-    imgs.push({url,name:f.name});
-    const grid=document.getElementById('img-grid');
-    if(!grid)return;
-    const tile=document.createElement('div');
-    tile.style.cssText='position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
-    tile.onclick=()=>openLbox(idx);
-    tile.innerHTML=`
-      <img src="${url}" style="width:100%;height:100%;object-fit:cover">
-      <div style="position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:flex-end;justify-content:flex-end;padding:5px;transition:background .15s" onmouseover="this.style.background='rgba(0,0,0,.35)'" onmouseout="this.style.background='rgba(0,0,0,0)'">
-        <a href="${url}" download="${f.name}" onclick="event.stopPropagation()" style="background:rgba(255,255,255,.9);border-radius:3px;padding:3px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none;opacity:0" class="dl-btn">↓</a>
-      </div>`;
-    // Remove placeholder if first image
-    const ph=grid.querySelector('.img-ph');
-    if(ph)ph.remove();
-    grid.insertBefore(tile,grid.lastElementChild);
-  });
-}
-
-function openLbox(idx){
-  lboxIdx=idx;
-  const lb=document.getElementById('lbox');
-  if(!lb)return;
-  lb.style.display='flex';
-  updLbox();
-}
-function updLbox(){
-  const im=imgs[lboxIdx];
-  if(!im)return;
-  document.getElementById('lbox-img').src=im.url;
-  document.getElementById('lbox-dl').href=im.url;
-  document.getElementById('lbox-dl').download=im.name;
-  document.getElementById('lbox-name').textContent=`${lboxIdx+1} / ${imgs.length}  ·  ${im.name}`;
-}
-function closeLbox(){document.getElementById('lbox').style.display='none';}
-function lboxNext(){lboxIdx=(lboxIdx+1)%imgs.length;updLbox();}
-function lboxPrev(){lboxIdx=(lboxIdx-1+imgs.length)%imgs.length;updLbox();}
-// keyboard nav
-document.addEventListener('keydown',e=>{
-  const lb=document.getElementById('lbox');
-  if(!lb||lb.style.display==='none')return;
-  if(e.key==='ArrowRight')lboxNext();
-  if(e.key==='ArrowLeft')lboxPrev();
-  if(e.key==='Escape')closeLbox();
-});
-
-// ── MODELO 3D — mejorado con GLTFLoader real ─────────
-function initViewer(canvas,url){
-  // Load Three.js first, then GLTFLoader
-  const loadScript=(src,cb)=>{
-    if(document.querySelector(`script[src="${src}"]`)){cb();return;}
-    const s=document.createElement('script');
-    s.src=src;s.onload=cb;document.head.appendChild(s);
-  };
-
-  loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',()=>{
-    // Load GLTFLoader from jsDelivr (compatible with r128)
-    loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',()=>{
-      _initScene(canvas,url);
-    });
-  });
-}
-
-function _initScene(canvas,url){
-  const W=canvas.clientWidth||canvas.parentElement.clientWidth||600;
-  const H=canvas.clientHeight||canvas.parentElement.clientHeight||338;
-  canvas.width=W*window.devicePixelRatio;
-  canvas.height=H*window.devicePixelRatio;
-  canvas.style.width=W+'px';canvas.style.height=H+'px';
-
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(W,H);
-  renderer.setClearColor(0xf0f0f0,1);
-  renderer.shadowMap.enabled=true;
-  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.outputEncoding=THREE.sRGBEncoding;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.2;
-
-  const scene=new THREE.Scene();
-  scene.background=new THREE.Color(0xf0f0f0);
-
-  const camera=new THREE.PerspectiveCamera(45,W/H,0.01,2000);
-  camera.position.set(5,3.5,5);
-
-  // Lighting
-  const ambient=new THREE.AmbientLight(0xffffff,0.6);
-  scene.add(ambient);
-  const sun=new THREE.DirectionalLight(0xffffff,1.2);
-  sun.position.set(10,20,10);
-  sun.castShadow=true;
-  sun.shadow.mapSize.width=2048;sun.shadow.mapSize.height=2048;
-  sun.shadow.camera.near=0.1;sun.shadow.camera.far=100;
-  sun.shadow.camera.left=-20;sun.shadow.camera.right=20;
-  sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;
-  scene.add(sun);
-  const fill=new THREE.DirectionalLight(0xffffff,0.4);
-  fill.position.set(-5,5,-5);scene.add(fill);
-
-  // Grid
-  const grid=new THREE.GridHelper(30,30,0xcccccc,0xe0e0e0);
-  scene.add(grid);
-
-  // Orbit state
-  let rot={x:-0.3,y:0.4},rotT={x:-0.3,y:0.4};
-  let zoom=1,zoomT=1;
-  let pan={x:0,y:0},panT={x:0,y:0};
-  let drag=false,last={x:0,y:0},mode='rotate',touches=[];
-
-  // Load GLB/GLTF
-  const loader=new THREE.GLTFLoader();
-  let modelBox=null;
-
-  // Show loading indicator
-  const hint=document.getElementById('v3d-hint');
-  if(hint){hint.textContent='Cargando modelo…';hint.style.display='block';}
-
-  loader.load(url,gltf=>{
-    const model=gltf.scene;
-    // Center and scale model
-    const box=new THREE.Box3().setFromObject(model);
-    const size=box.getSize(new THREE.Vector3());
-    const center=box.getCenter(new THREE.Vector3());
-    const maxDim=Math.max(size.x,size.y,size.z);
-    const scale=4/maxDim;
-    model.scale.setScalar(scale);
-    model.position.sub(center.multiplyScalar(scale));
-    model.position.y+=size.y*scale/2;
-    // Shadows
-    model.traverse(c=>{if(c.isMesh){c.castShadow=true;c.receiveShadow=true;}});
-    scene.add(model);
-    modelBox=box;
-    // Camera position based on model size
-    const d=maxDim*scale*1.5;
-    camera.position.set(d,d*0.7,d);
-    camera.lookAt(0,0,0);
-    if(hint){hint.textContent='Arrastrá para rotar · Pinzá para zoom';
-      setTimeout(()=>hint.style.display='none',3000);}
-  },
-  prog=>{
-    const pct=Math.round(prog.loaded/prog.total*100);
-    if(hint)hint.textContent=`Cargando… ${pct}%`;
-  },
-  err=>{
-    console.warn('GLTFLoader error:',err);
-    // Fallback: show a box representing the building
-    const geo=new THREE.BoxGeometry(3,2,4);
-    const mat=new THREE.MeshStandardMaterial({color:0x888888,roughness:0.6,metalness:0.2});
-    const mesh=new THREE.Mesh(geo,mat);
-    mesh.position.y=1;mesh.castShadow=true;scene.add(mesh);
-    if(hint){hint.textContent='Arrastrá para rotar · Pinzá para zoom';
-      setTimeout(()=>hint.style.display='none',3000);}
-  });
-
-  // Event handlers
-  const ePos=e=>({x:e.clientX??e.touches?.[0]?.clientX??0,
-                   y:e.clientY??e.touches?.[0]?.clientY??0});
-  canvas.addEventListener('mousedown',e=>{drag=true;mode=e.shiftKey?'pan':'rotate';last=ePos(e);});
-  canvas.addEventListener('mousemove',e=>{if(!drag)return;const p=ePos(e),dx=p.x-last.x,dy=p.y-last.y;
-    if(mode==='rotate'){rotT.y+=dx*0.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+dy*0.35));}
-    else{panT.x-=dx*0.005*zoom;panT.y+=dy*0.005*zoom;}last=p;e.preventDefault();});
-  canvas.addEventListener('mouseup',()=>drag=false);
-  canvas.addEventListener('mouseleave',()=>drag=false);
-  canvas.addEventListener('wheel',e=>{zoomT=Math.max(0.15,Math.min(6,zoomT-e.deltaY*0.001));e.preventDefault();},{passive:false});
-  // Touch
-  canvas.addEventListener('touchstart',e=>{touches=[...e.touches];
-    if(e.touches.length===1){drag=true;mode='rotate';last={x:e.touches[0].clientX,y:e.touches[0].clientY};}
-  },{passive:true});
-  canvas.addEventListener('touchmove',e=>{e.preventDefault();
-    if(e.touches.length===1&&drag){const dx=e.touches[0].clientX-last.x,dy=e.touches[0].clientY-last.y;
-      rotT.y+=dx*0.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+dy*0.35));
-      last={x:e.touches[0].clientX,y:e.touches[0].clientY};}
-    else if(e.touches.length===2&&touches.length===2){
-      const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);
-      const d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      zoomT=Math.max(0.15,Math.min(6,zoomT*(d1/d0)));touches=[...e.touches];}
-  },{passive:false});
-  canvas.addEventListener('touchend',()=>{drag=false;});
-
-  // Resize
-  window.addEventListener('resize',()=>{
-    const W2=canvas.parentElement.clientWidth,H2=canvas.parentElement.clientHeight;
-    renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix();});
-
-  // Animate
-  const phi=Math.PI/180;
-  function animate(){
-    requestAnimationFrame(animate);
-    rot.x+=(rotT.x-rot.x)*0.1;rot.y+=(rotT.y-rot.y)*0.1;
-    zoom+=(zoomT-zoom)*0.1;pan.x+=(panT.x-pan.x)*0.1;pan.y+=(panT.y-pan.y)*0.1;
-    const r=5*zoom;
-    camera.position.set(
-      Math.sin(rot.y*phi)*Math.cos(rot.x*phi)*r+pan.x,
-      Math.sin(rot.x*phi)*r+pan.y+1,
-      Math.cos(rot.y*phi)*Math.cos(rot.x*phi)*r
-    );
-    camera.lookAt(pan.x,pan.y,0);
-    renderer.render(scene,camera);
-  }
-  animate();
-  v3dCtx={rotT,zoomT:()=>zoomT,panT,set zoom(v){zoomT=v;},reset:()=>{rotT.x=-0.3*180/Math.PI;rotT.y=0.4*180/Math.PI;zoomT=1;panT.x=0;panT.y=0;}};
-}
-
-function reset3D(){if(v3dCtx&&v3dCtx.reset)v3dCtx.reset();}
-
-
-// ══════════════════════════════════════════════════════
-// GOOGLE SHEETS — leer CONFIG del Sheet publicado
-// ══════════════════════════════════════════════════════
-function parseCSV(text) {
-  return text.split('\n').map(row => {
+// ── CSV parser ────────────────────────────────────────────────
+function parseCSV(text){
+  return text.split('\n').map(row=>{
     const cells=[]; let cur=''; let inQ=false;
     for(let i=0;i<row.length;i++){
       const ch=row[i];
@@ -1142,72 +791,217 @@ function parseCSV(text) {
     return cells;
   });
 }
+function csvCell(rows,r,c){const row=rows[r-1];return row&&row[c-1]?row[c-1].replace(/^"|"$/g,'').trim():'';}
+function setTxt(id,val){const el=document.getElementById(id);if(el&&val)el.textContent=val;}
 
-function csvCell(rows,row,col){
-  const r=rows[row-1];
-  return r&&r[col-1]?r[col-1].replace(/^"|"$/g,'').trim():'';
-}
-
-function setTxt(id,val){
-  const el=document.getElementById(id);
-  if(el&&val)el.textContent=val;
-}
-
+// ── Sheet data loader ─────────────────────────────────────────
 function loadSheetData(){
   const btn=document.getElementById('refresh-btn');
-  const indicator=document.getElementById('sheet-status');
+  const ind=document.getElementById('sheet-status');
   if(btn)btn.style.opacity='0.5';
-  if(indicator)indicator.textContent='Actualizando...';
-
-  fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTa9-Rgg4keroBAs_16isF_GnAVkym6ptTdijaog87_nzkY4PvqkFuk80N5gDp0AaCJa5nzE093cUT-/pub?output=csv')
+  if(ind)ind.textContent='Actualizando...';
+  fetch(CONFIG.sheetCSV)
     .then(r=>{if(!r.ok)throw new Error(r.status);return r.text();})
     .then(csv=>{
       const rows=parseCSV(csv);
       const d={
-        proyecto   :csvCell(rows,5,3),
-        cliente    :csvCell(rows,6,3),
-        cuit       :csvCell(rows,7,3),
-        direccion  :csvCell(rows,8,3),
-        localidad  :csvCell(rows,9,3),
-        superficie :csvCell(rows,10,3),
-        categoria  :csvCell(rows,11,3),
-        nLicit     :csvCell(rows,12,3),
-        fechaApert :csvCell(rows,13,3),
-        profesional:csvCell(rows,14,3),
+        proyecto   :csvCell(rows,5,3),  cliente    :csvCell(rows,6,3),
+        cuit       :csvCell(rows,7,3),  direccion  :csvCell(rows,8,3),
+        localidad  :csvCell(rows,9,3),  superficie :csvCell(rows,10,3),
+        categoria  :csvCell(rows,11,3), nLicit     :csvCell(rows,12,3),
+        fechaApert :csvCell(rows,13,3), profesional:csvCell(rows,14,3),
         matricula  :csvCell(rows,15,3),
-        emp1       :csvCell(rows,19,3),
-        emp2       :csvCell(rows,20,3),
-        emp3       :csvCell(rows,21,3),
-        emp4       :csvCell(rows,22,3),
-        emp5       :csvCell(rows,23,3),
-        tipoCambio :csvCell(rows,26,3),
-        cotizacion :csvCell(rows,27,3),
       };
-      // Update cover
-      setTxt('cv-proyecto',  d.proyecto);
-      setTxt('cv-tipo',      d.categoria);
-      setTxt('cv-ubicacion', d.direccion+(d.localidad?' · '+d.localidad:''));
-      setTxt('cv-cliente-v', d.cliente);
-      setTxt('cv-rep-v',     d.cuit||'—');
-      setTxt('cv-prof-v',    d.profesional);
-      setTxt('cv-mat-v',     d.matricula);
-      setTxt('cv-sup-v',     d.superficie?d.superficie+' m²':'—');
-      setTxt('cv-badge',     d.nLicit);
-      setTxt('cv-fecha-v',   d.fechaApert);
-      setTxt('cv-proyecto',  d.proyecto);
-      setTxt('tb-proyecto',  d.proyecto||'Panel de Proyecto');
-      setTxt('sb-proyecto',  d.proyecto||'Proyecto');
-      setTxt('sb-cliente',   d.cliente||'');
+      setTxt('cv-proyecto', d.proyecto);
+      setTxt('cv-tipo',     d.categoria);
+      setTxt('cv-ubicacion',d.direccion+(d.localidad?' · '+d.localidad:''));
+      setTxt('cv-cliente-v',d.cliente);
+      setTxt('cv-rep-v',    d.cuit||'—');
+      setTxt('cv-prof-v',   d.profesional);
+      setTxt('cv-mat-v',    d.matricula);
+      setTxt('cv-sup-v',    d.superficie?d.superficie+' m²':'—');
+      setTxt('cv-badge',    d.nLicit);
+      setTxt('cv-fecha-v',  d.fechaApert);
       if(btn)btn.style.opacity='1';
-      if(indicator){indicator.textContent='✓ Actualizado';setTimeout(()=>indicator.textContent='Actualizar',3000);}
-      console.log('Sheet OK:',d.proyecto);
+      if(ind){ind.textContent='✓ OK';setTimeout(()=>ind.textContent='Actualizar',2500);}
     })
     .catch(err=>{
-      console.warn('Sheet error:',err);
+      console.warn('Sheet:',err);
       if(btn)btn.style.opacity='1';
-      if(indicator)indicator.textContent='⚠ Sin conexión';
+      if(ind)ind.textContent='⚠ Error';
     });
 }
+
+// ── Drive file loader ─────────────────────────────────────────
+function loadDriveFiles(){
+  fetch(CONFIG.driveApiUrl)
+    .then(r=>r.json())
+    .then(data=>{
+      if(data.images&&data.images.length) loadDriveImages(data.images);
+      if(data.planos&&data.planos.length) loadDrivePlanos(data.planos);
+    })
+    .catch(err=>console.warn('Drive:',err));
+}
+
+// ── Image gallery ─────────────────────────────────────────────
+let imgs=[]; let lboxIdx=0;
+function loadDriveImages(images){
+  const grid=document.getElementById('img-grid');
+  if(!grid)return;
+  const ph=grid.querySelector('.img-ph');
+  images.forEach((img,i)=>{
+    if(grid.querySelector(`[data-id="${img.id}"]`))return;
+    const idx=imgs.length;
+    const tile=document.createElement('div');
+    tile.dataset.id=img.id;
+    tile.style.cssText='position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
+    tile.onclick=()=>openLbox(idx);
+    tile.innerHTML=`<img src="${img.thumbUrl}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='${img.viewUrl}'">
+      <div style="position:absolute;bottom:4px;right:4px"><a href="${img.downloadUrl}" target="_blank" onclick="event.stopPropagation()" style="background:rgba(255,255,255,.9);border-radius:3px;padding:2px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none">↓</a></div>`;
+    if(ph)grid.insertBefore(tile,ph); else grid.appendChild(tile);
+    imgs.push({url:img.thumbUrl,name:img.name,downloadUrl:img.downloadUrl});
+  });
+  if(ph&&imgs.length>0)ph.remove();
+}
+function loadImgs(input){
+  [...input.files].forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const url=URL.createObjectURL(f);
+    const idx=imgs.length;
+    const grid=document.getElementById('img-grid');
+    const tile=document.createElement('div');
+    tile.style.cssText='position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
+    tile.onclick=()=>openLbox(idx);
+    tile.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;bottom:4px;right:4px"><a href="${url}" download="${f.name}" onclick="event.stopPropagation()" style="background:rgba(255,255,255,.9);border-radius:3px;padding:2px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none">↓</a></div>`;
+    grid&&grid.appendChild(tile);
+    imgs.push({url,name:f.name,downloadUrl:url});
+  });
+}
+function openLbox(idx){lboxIdx=idx;const lb=document.getElementById('lbox');if(lb){lb.style.display='flex';updLbox();}}
+function updLbox(){const im=imgs[lboxIdx];if(!im)return;document.getElementById('lbox-img').src=im.url;document.getElementById('lbox-dl').href=im.downloadUrl||im.url;document.getElementById('lbox-dl').download=im.name;document.getElementById('lbox-name').textContent=(lboxIdx+1)+' / '+imgs.length+' · '+im.name;}
+function closeLbox(){document.getElementById('lbox').style.display='none';}
+function lboxNext(){lboxIdx=(lboxIdx+1)%imgs.length;updLbox();}
+function lboxPrev(){lboxIdx=(lboxIdx-1+imgs.length)%imgs.length;updLbox();}
+document.addEventListener('keydown',e=>{const lb=document.getElementById('lbox');if(!lb||lb.style.display==='none')return;if(e.key==='ArrowRight')lboxNext();if(e.key==='ArrowLeft')lboxPrev();if(e.key==='Escape')closeLbox();});
+
+// ── Planos loader ─────────────────────────────────────────────
+function loadDrivePlanos(planos){
+  const dl=document.getElementById('planos-dl');
+  if(!dl)return;
+  planos.forEach(pl=>{
+    const isMain=pl.name.toLowerCase().includes('proyecto')||pl.name.toLowerCase()==='proyecto.pdf';
+    if(isMain){
+      const card=document.getElementById('plano-principal-card');
+      const iframe=document.getElementById('plano-principal-iframe');
+      const dlBtn=document.getElementById('plano-principal-dl');
+      const nom=document.getElementById('plano-principal-nombre');
+      if(card&&iframe){iframe.src=pl.viewUrl;if(dlBtn)dlBtn.href=pl.downloadUrl;if(nom)nom.textContent=pl.name;card.style.display='block';}
+      return;
+    }
+    const name=pl.name.replace(/^PL-\d+-?/,'').replace(/[-_]/g,' ').replace(/\.pdf$/i,'').trim()||pl.name;
+    const el=document.createElement('div');
+    el.className='di';el.dataset.drive='1';
+    el.innerHTML=`<div class="dic">📄</div><div class="din"><div class="dnm">${name}</div><div class="dmt">PDF · ${pl.size}</div></div><div class="dac"><a href="${pl.downloadUrl}" target="_blank" class="btn bp bs" style="text-decoration:none">↓ PDF</a></div>`;
+    dl.insertBefore(el,dl.lastElementChild||null);
+  });
+}
+function loadPlanos(input){
+  [...input.files].forEach(f=>{
+    const url=URL.createObjectURL(f);
+    const ext=f.name.split('.').pop().toUpperCase();
+    const dl=document.getElementById('planos-dl');
+    if(!dl)return;
+    const el=document.createElement('div');el.className='di';
+    el.innerHTML=`<div class="dic">📄</div><div class="din"><div class="dnm">${f.name}</div><div class="dmt">${ext} · ${(f.size/1024/1024).toFixed(1)} MB</div></div><div class="dac"><a href="${url}" download="${f.name}" class="btn bp bs" style="text-decoration:none">↓ ${ext}</a></div>`;
+    dl.appendChild(el);
+  });
+}
+
+// ── 3D viewer ─────────────────────────────────────────────────
+let v3dCtx=null;
+function load3D(input){
+  if(!input.files[0])return;
+  const url=URL.createObjectURL(input.files[0]);
+  const canvas=document.getElementById('v3d-canvas');
+  if(canvas){canvas.style.display='block';document.querySelector('.v3d-ph')&&(document.querySelector('.v3d-ph').style.display='none');initViewer(canvas,url);}
+}
+function loadGitHubModel(){
+  const canvas=document.getElementById('v3d-canvas');
+  if(!canvas)return;
+  fetch(CONFIG.modelGLB,{method:'HEAD'})
+    .then(r=>{if(r.ok){canvas.style.display='block';const ph=document.querySelector('.v3d-ph');if(ph)ph.style.display='none';initViewer(canvas,CONFIG.modelGLB);}else{console.log('No modelo.glb in GitHub');}})    .catch(()=>console.log('modelo.glb not found yet'));
+}
+function reset3D(){if(v3dCtx&&v3dCtx.reset)v3dCtx.reset();}
+function initViewer(canvas,url){
+  const loadScript=(src,cb)=>{const s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s);};
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',()=>{
+    loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',()=>{
+      _initScene(canvas,url);
+    });
+  });
+}
+function _initScene(canvas,url){
+  const W=canvas.parentElement.clientWidth||600,H=Math.round(W*0.56);
+  canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W,H);
+  renderer.setClearColor(0xf0f0f0,1);renderer.shadowMap.enabled=true;
+  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  const scene=new THREE.Scene();scene.background=new THREE.Color(0xf0f0f0);
+  const camera=new THREE.PerspectiveCamera(45,W/H,0.01,2000);
+  scene.add(new THREE.AmbientLight(0xffffff,0.6));
+  const sun=new THREE.DirectionalLight(0xffffff,1.2);sun.position.set(10,20,10);sun.castShadow=true;scene.add(sun);
+  scene.add(new THREE.GridHelper(30,30,0xcccccc,0xe0e0e0));
+  let rot={x:-17,y:25},rotT={x:-17,y:25},zoom=1,zoomT=1,drag=false,last={x:0,y:0},touches=[];
+  const hint=document.getElementById('v3d-hint');
+  const loader=new THREE.GLTFLoader();
+  loader.load(url,gltf=>{
+    const model=gltf.scene;
+    const box=new THREE.Box3().setFromObject(model);
+    const size=box.getSize(new THREE.Vector3());
+    const center=box.getCenter(new THREE.Vector3());
+    const sc=4/Math.max(size.x,size.y,size.z);
+    model.scale.setScalar(sc);model.position.sub(center.multiplyScalar(sc));model.position.y+=size.y*sc/2;
+    model.traverse(c=>{if(c.isMesh){c.castShadow=true;c.receiveShadow=true;}});
+    scene.add(model);
+    const d=4/Math.max(size.x,size.y,size.z)*Math.max(size.x,size.y,size.z)*1.5;
+    camera.position.set(d,d*0.7,d);camera.lookAt(0,0,0);
+    if(hint){hint.textContent='Arrastrá para rotar · Pinzá para zoom';setTimeout(()=>hint.style.display='none',3000);}
+  },p=>{if(hint)hint.textContent='Cargando '+Math.round(p.loaded/p.total*100)+'%';},()=>{if(hint){hint.textContent='Cargá un modelo GLB';hint.style.display='block';}} );
+  canvas.addEventListener('mousedown',e=>{drag=true;last={x:e.clientX,y:e.clientY};});
+  canvas.addEventListener('mousemove',e=>{if(!drag)return;rotT.y+=(e.clientX-last.x)*.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+(e.clientY-last.y)*.35));last={x:e.clientX,y:e.clientY};e.preventDefault();},{passive:false});
+  canvas.addEventListener('mouseup',()=>drag=false);
+  canvas.addEventListener('wheel',e=>{zoomT=Math.max(.15,Math.min(6,zoomT-e.deltaY*.001));e.preventDefault();},{passive:false});
+  canvas.addEventListener('touchstart',e=>{touches=[...e.touches];if(e.touches.length===1){drag=true;last={x:e.touches[0].clientX,y:e.touches[0].clientY};}}  ,{passive:true});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(e.touches.length===1&&drag){rotT.y+=(e.touches[0].clientX-last.x)*.35;rotT.x=Math.max(-80,Math.min(80,rotT.x+(e.touches[0].clientY-last.y)*.35));last={x:e.touches[0].clientX,y:e.touches[0].clientY};}else if(e.touches.length===2&&touches.length===2){const d0=Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY),d1=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoomT=Math.max(.15,Math.min(6,zoomT*(d1/d0)));touches=[...e.touches];}},{passive:false});
+  canvas.addEventListener('touchend',()=>drag=false);
+  window.addEventListener('resize',()=>{const W2=canvas.parentElement.clientWidth,H2=Math.round(W2*.56);renderer.setSize(W2,H2);camera.aspect=W2/H2;camera.updateProjectionMatrix();});
+  const p=Math.PI/180;
+  (function animate(){requestAnimationFrame(animate);rot.x+=(rotT.x-rot.x)*.1;rot.y+=(rotT.y-rot.y)*.1;zoom+=(zoomT-zoom)*.1;const r=5*zoom;camera.position.set(Math.sin(rot.y*p)*Math.cos(rot.x*p)*r,Math.sin(rot.x*p)*r+1,Math.cos(rot.y*p)*Math.cos(rot.x*p)*r);camera.lookAt(0,1,0);renderer.render(scene,camera);})();
+  v3dCtx={rotT,reset:()=>{rotT.x=-17;rotT.y=25;zoomT=1;}};
+}
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  loadSheetData();
+  loadDriveFiles();
+  loadGitHubModel();
+  setInterval(loadSheetData,5*60*1000);
+});
+
+// ── Extra CSS overrides ───────────────────────────────────────
+const styleEl=document.createElement('style');
+styleEl.textContent=`
+button{color:inherit;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+.bi,.bi *{color:var(--k4)}
+.bi.active,.bi.active *{color:var(--k)}
+svg{display:inline-block}
+`;
+document.head.appendChild(styleEl);
+
 </script>
 </body>
 </html>
