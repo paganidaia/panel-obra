@@ -405,59 +405,65 @@ tbody tr:hover{background:rgba(10,10,10,.025)}
         </div>
       </div>
 
-      <!-- Imágenes -->
+      <!-- Imágenes — slideshow -->
       <div class="card">
         <div class="ch">Renders y Fotografías</div>
-        <div id="img-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:7px;margin-bottom:10px">
-          <label class="img-ph" style="aspect-ratio:4/3;background:var(--s);border:2px dashed var(--lm);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer">
-            <span style="font-size:22px;opacity:.2">+</span>
-            <span style="font-size:9px;font-weight:700;color:var(--k4)">Agregar</span>
+
+        <!-- Visor principal -->
+        <div style="position:relative;background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center" id="img-viewer">
+          <!-- Placeholder -->
+          <div id="img-ph" style="display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.35">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="3" y="7" width="34" height="26" rx="3" stroke="currentColor" stroke-width="2"/><circle cx="14" cy="17" r="3" stroke="currentColor" stroke-width="2"/><path d="M3 28l9-8 7 7 5-5 13 9" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Sin imágenes</span>
+          </div>
+          <!-- Image display -->
+          <img id="img-slide" src="" style="display:none;width:100%;height:100%;object-fit:contain">
+          <!-- Nav arrows -->
+          <button id="img-prev" onclick="imgPrev()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)">◀</button>
+          <button id="img-next" onclick="imgNext()" style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12)">▶</button>
+          <!-- Counter -->
+          <div id="img-counter" style="display:none;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.45);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.05em"></div>
+        </div>
+
+        <!-- Descargar + cargar -->
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <a id="img-dl" href="#" download style="text-decoration:none" onclick="return imgs.length>0">
+            <button class="btn bp" id="img-dl-btn" style="opacity:.3;cursor:default">↓ Descargar</button>
+          </a>
+          <label class="btn" style="cursor:pointer">↑ Cargar imágenes
             <input type="file" id="img-input" accept="image/*" multiple style="display:none" onchange="loadImgs(this)">
           </label>
         </div>
-        <div class="row">
-          <label class="btn bp" style="cursor:pointer">↑ Cargar imágenes<input type="file" accept="image/*" multiple style="display:none" onchange="loadImgs(this)"></label>
-        </div>
-      </div>
-      <!-- Lightbox -->
-      <div id="lbox" onclick="closeLbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:12px">
-        <button onclick="event.stopPropagation();closeLbox()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:8px">✕</button>
-        <img id="lbox-img" src="" onclick="event.stopPropagation()" style="max-width:94vw;max-height:78vh;border-radius:6px;object-fit:contain">
-        <div onclick="event.stopPropagation()" style="display:flex;gap:10px;align-items:center">
-          <button onclick="lboxPrev()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:9px 16px;border-radius:5px;cursor:pointer;font-size:18px">◀</button>
-          <a id="lbox-dl" download style="background:#fff;color:#000;padding:9px 18px;border-radius:5px;font-size:11px;font-weight:800;text-decoration:none">↓ DESCARGAR</a>
-          <button onclick="lboxNext()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:9px 16px;border-radius:5px;cursor:pointer;font-size:18px">▶</button>
-        </div>
-        <div id="lbox-name" style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.05em"></div>
       </div>
     </div>
 
     <div class="sec" id="a5">
       <div class="sh"><span class="sn">05/</span><h2 class="st">Planos</h2></div>
 
-      <!-- Plano principal (Proyecto.pdf) — visor inline -->
-      <div class="card" id="plano-principal-card" style="display:none">
-        <div class="ch">Plano del Proyecto</div>
-        <div style="width:100%;background:#f0f0f0;border-radius:6px;overflow:hidden;margin-bottom:10px">
-          <iframe id="plano-principal-iframe" src="" style="width:100%;height:480px;border:none;display:block" allowfullscreen></iframe>
-        </div>
-        <div class="row">
-          <a id="plano-principal-dl" href="#" target="_blank" class="btn bp" style="text-decoration:none">↓ Descargar PDF</a>
-          <span id="plano-principal-nombre" style="font-size:10px;color:var(--k4);align-self:center"></span>
-        </div>
-      </div>
-
-      <!-- Resto de planos — solo descarga -->
+      <!-- Planos — visor + lista -->
       <div class="card">
-        <div class="ch">Documentación</div>
-        <div class="dl" id="planos-dl">
+        <div class="ch">Planos del Proyecto</div>
+
+        <!-- Visor PDF -->
+        <div style="background:var(--s);border-radius:6px;overflow:hidden;margin-bottom:12px">
+          <div id="plano-ph" style="height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:.4">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="22" height="30" rx="2" stroke="currentColor" stroke-width="2"/><path d="M26 2v8h8" stroke="currentColor" stroke-width="2"/><line x1="9" y1="13" x2="19" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="17" x2="19" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span style="font-size:11px;font-weight:700;color:var(--k3)">Seleccioná un plano de la lista</span>
+          </div>
+          <iframe id="plano-viewer" src="" style="display:none;width:100%;height:500px;border:none" allowfullscreen></iframe>
+        </div>
+
+        <!-- Lista de planos -->
+        <div id="planos-dl" style="margin-bottom:10px;border:1px solid var(--l);border-radius:6px;overflow:hidden">
           <!-- se carga desde Drive -->
         </div>
+
         <div class="row">
-          <label class="btn bp" style="cursor:pointer">↑ Cargar plano<input type="file" accept=".pdf,.dwg,.dxf" multiple style="display:none" onchange="loadPlanos(this)"></label>
+          <label class="btn bp" style="cursor:pointer">↑ Cargar plano
+            <input type="file" accept=".pdf" multiple style="display:none" onchange="loadPlanosLocal(this)">
+          </label>
         </div>
       </div>
-    </div>
 
     <div class="sec" id="a6">
       <div class="sh"><span class="sn">06/</span><h2 class="st">Presupuesto</h2></div>
@@ -767,7 +773,7 @@ function initViewer(canvas,url){
     }
     // Scroll wheel — scroll up = zoom in (natural)
     function onWheel(e){
-      zoomTarget=Math.max(0.15,Math.min(6,zoomTarget+e.deltaY*0.001));
+      zoomTarget=Math.max(0.15,Math.min(6,zoomTarget-e.deltaY*0.001));
       e.preventDefault();
     }
     
@@ -806,7 +812,7 @@ function initViewer(canvas,url){
         );
         if(lastPinchDist>0){
           const scale=dist/lastPinchDist;
-          zoomTarget=Math.max(0.15,Math.min(6,zoomTarget/scale));
+          zoomTarget=Math.max(0.15,Math.min(6,zoomTarget*scale));
         }
         lastPinchDist=dist;
         // Two-finger pan
@@ -933,78 +939,18 @@ function loadDriveFiles(){
 
 // ── Image gallery ─────────────────────────────────────────────
 let imgs=[]; let lboxIdx=0;
-function loadDriveImages(images){
-  const grid=document.getElementById('img-grid');
-  if(!grid)return;
-  const ph=grid.querySelector('.img-ph');
-  images.forEach((img,i)=>{
-    if(grid.querySelector(`[data-id="${img.id}"]`))return;
-    const idx=imgs.length;
-    const tile=document.createElement('div');
-    tile.dataset.id=img.id;
-    tile.style.cssText='position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
-    tile.onclick=()=>openLbox(idx);
-    tile.innerHTML=`<img src="${img.thumbUrl}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.src='${img.viewUrl}'">
-      <div style="position:absolute;bottom:4px;right:4px"><a href="${img.downloadUrl}" target="_blank" onclick="event.stopPropagation()" style="background:rgba(255,255,255,.9);border-radius:3px;padding:2px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none">↓</a></div>`;
-    if(ph)grid.insertBefore(tile,ph); else grid.appendChild(tile);
-    imgs.push({url:img.thumbUrl,name:img.name,downloadUrl:img.downloadUrl});
-  });
-  if(ph&&imgs.length>0)ph.remove();
-}
-function loadImgs(input){
-  [...input.files].forEach(f=>{
-    if(!f.type.startsWith('image/'))return;
-    const url=URL.createObjectURL(f);
-    const idx=imgs.length;
-    const grid=document.getElementById('img-grid');
-    const tile=document.createElement('div');
-    tile.style.cssText='position:relative;aspect-ratio:4/3;border-radius:5px;overflow:hidden;cursor:pointer;background:var(--s)';
-    tile.onclick=()=>openLbox(idx);
-    tile.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover">
-      <div style="position:absolute;bottom:4px;right:4px"><a href="${url}" download="${f.name}" onclick="event.stopPropagation()" style="background:rgba(255,255,255,.9);border-radius:3px;padding:2px 6px;font-size:9px;font-weight:700;color:#000;text-decoration:none">↓</a></div>`;
-    grid&&grid.appendChild(tile);
-    imgs.push({url,name:f.name,downloadUrl:url});
-  });
-}
-function openLbox(idx){lboxIdx=idx;const lb=document.getElementById('lbox');if(lb){lb.style.display='flex';updLbox();}}
-function updLbox(){const im=imgs[lboxIdx];if(!im)return;document.getElementById('lbox-img').src=im.url;document.getElementById('lbox-dl').href=im.downloadUrl||im.url;document.getElementById('lbox-dl').download=im.name;document.getElementById('lbox-name').textContent=(lboxIdx+1)+' / '+imgs.length+' · '+im.name;}
-function closeLbox(){document.getElementById('lbox').style.display='none';}
-function lboxNext(){lboxIdx=(lboxIdx+1)%imgs.length;updLbox();}
-function lboxPrev(){lboxIdx=(lboxIdx-1+imgs.length)%imgs.length;updLbox();}
-document.addEventListener('keydown',e=>{const lb=document.getElementById('lbox');if(!lb||lb.style.display==='none')return;if(e.key==='ArrowRight')lboxNext();if(e.key==='ArrowLeft')lboxPrev();if(e.key==='Escape')closeLbox();});
+
+
+
+
+
+
+
+
 
 // ── Planos loader ─────────────────────────────────────────────
-function loadDrivePlanos(planos){
-  const dl=document.getElementById('planos-dl');
-  if(!dl)return;
-  planos.forEach(pl=>{
-    const isMain=pl.name.toLowerCase().includes('proyecto')||pl.name.toLowerCase()==='proyecto.pdf';
-    if(isMain){
-      const card=document.getElementById('plano-principal-card');
-      const iframe=document.getElementById('plano-principal-iframe');
-      const dlBtn=document.getElementById('plano-principal-dl');
-      const nom=document.getElementById('plano-principal-nombre');
-      if(card&&iframe){iframe.src=pl.viewUrl;if(dlBtn)dlBtn.href=pl.downloadUrl;if(nom)nom.textContent=pl.name;card.style.display='block';}
-      return;
-    }
-    const name=pl.name.replace(/^PL-\d+-?/,'').replace(/[-_]/g,' ').replace(/\.pdf$/i,'').trim()||pl.name;
-    const el=document.createElement('div');
-    el.className='di';el.dataset.drive='1';
-    el.innerHTML=`<div class="dic">📄</div><div class="din"><div class="dnm">${name}</div><div class="dmt">PDF · ${pl.size}</div></div><div class="dac"><a href="${pl.downloadUrl}" target="_blank" class="btn bp bs" style="text-decoration:none">↓ PDF</a></div>`;
-    dl.insertBefore(el,dl.lastElementChild||null);
-  });
-}
-function loadPlanos(input){
-  [...input.files].forEach(f=>{
-    const url=URL.createObjectURL(f);
-    const ext=f.name.split('.').pop().toUpperCase();
-    const dl=document.getElementById('planos-dl');
-    if(!dl)return;
-    const el=document.createElement('div');el.className='di';
-    el.innerHTML=`<div class="dic">📄</div><div class="din"><div class="dnm">${f.name}</div><div class="dmt">${ext} · ${(f.size/1024/1024).toFixed(1)} MB</div></div><div class="dac"><a href="${url}" download="${f.name}" class="btn bp bs" style="text-decoration:none">↓ ${ext}</a></div>`;
-    dl.appendChild(el);
-  });
-}
+
+
 
 // ── 3D viewer ─────────────────────────────────────────────────
 let v3dCtx=null;
@@ -1102,6 +1048,124 @@ a{color:inherit}
 svg{display:inline-block}
 `;
 document.head.appendChild(styleEl);
+
+
+// ── IMAGE SLIDESHOW ───────────────────────────────────────────
+let imgs=[], imgIdx=0;
+
+function imgShow(idx){
+  if(!imgs.length) return;
+  imgIdx = (idx + imgs.length) % imgs.length;
+  const im = imgs[imgIdx];
+  const slide = document.getElementById('img-slide');
+  const ph    = document.getElementById('img-ph');
+  const prev  = document.getElementById('img-prev');
+  const next  = document.getElementById('img-next');
+  const cnt   = document.getElementById('img-counter');
+  const dlBtn = document.getElementById('img-dl-btn');
+  const dlA   = document.getElementById('img-dl');
+  if(slide){ slide.src=im.url; slide.style.display='block'; }
+  if(ph)    ph.style.display='none';
+  if(prev)  prev.style.display='flex';
+  if(next)  next.style.display='flex';
+  if(cnt){  cnt.style.display='block'; cnt.textContent=(imgIdx+1)+' / '+imgs.length+' · '+im.name; }
+  if(dlBtn){ dlBtn.style.opacity='1'; dlBtn.style.cursor='pointer'; }
+  if(dlA){  dlA.href=im.downloadUrl||im.url; dlA.download=im.name; }
+}
+function imgNext(){ imgShow(imgIdx+1); }
+function imgPrev(){ imgShow(imgIdx-1); }
+
+function loadImgs(input){
+  [...input.files].forEach(f=>{
+    if(!f.type.startsWith('image/')) return;
+    const url = URL.createObjectURL(f);
+    imgs.push({url, name:f.name, downloadUrl:url});
+  });
+  if(imgs.length) imgShow(imgs.length-1);
+}
+
+function loadDriveImages(images){
+  images.forEach(img=>{
+    if(document.querySelector(`[data-img-id="${img.id}"]`)) return;
+    imgs.push({url:img.thumbUrl||img.viewUrl, name:img.name, downloadUrl:img.downloadUrl, id:img.id});
+  });
+  if(imgs.length) imgShow(0);
+}
+
+// Touch swipe for slideshow
+(function(){
+  let startX=0;
+  const viewer = document.getElementById('img-viewer');
+  if(!viewer) return;
+  viewer.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; }, {passive:true});
+  viewer.addEventListener('touchend',   e=>{
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx)>40){ dx<0 ? imgNext() : imgPrev(); }
+  }, {passive:true});
+})();
+
+// ── PLANOS VIEWER + LIST ──────────────────────────────────────
+let planosData = [];
+
+function selectPlano(idx){
+  const pl = planosData[idx];
+  if(!pl) return;
+  const viewer = document.getElementById('plano-viewer');
+  const ph     = document.getElementById('plano-ph');
+  if(viewer){ viewer.src=pl.viewUrl; viewer.style.display='block'; }
+  if(ph)     ph.style.display='none';
+  // Highlight selected row
+  document.querySelectorAll('.plano-row').forEach((el,i)=>{
+    el.style.background = i===idx ? 'var(--s2)' : '';
+    el.style.fontWeight = i===idx ? '700' : '';
+  });
+}
+
+function loadDrivePlanos(planos){
+  planosData = planos;
+  const dl = document.getElementById('planos-dl');
+  if(!dl) return;
+  dl.innerHTML = '';
+  planos.forEach((pl,i)=>{
+    const name = pl.name
+      .replace(/^PL-\d+-?/,'')
+      .replace(/[-_]/g,' ')
+      .replace(/\.pdf$/i,'')
+      .trim() || pl.name;
+    const row = document.createElement('div');
+    row.className = 'plano-row';
+    row.style.cssText = 'display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--l);transition:background .1s;gap:10px';
+    row.onclick = ()=>selectPlano(i);
+    row.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.5"><rect x="2" y="1" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="4" y1="7.5" x2="9" y2="7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="4" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+      <span style="flex:1;font-size:12px;color:var(--k)">${name}</span>
+      <a href="${pl.downloadUrl}" target="_blank" onclick="event.stopPropagation()"
+         style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
+    dl.appendChild(row);
+  });
+  // Auto-select first
+  if(planos.length) selectPlano(0);
+}
+
+function loadPlanosLocal(input){
+  [...input.files].forEach((f,i)=>{
+    const url = URL.createObjectURL(f);
+    planosData.push({name:f.name, viewUrl:url, downloadUrl:url});
+    const dl  = document.getElementById('planos-dl');
+    const idx = planosData.length-1;
+    const row = document.createElement('div');
+    row.className='plano-row';
+    row.style.cssText='display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--l);gap:10px';
+    row.onclick=()=>selectPlano(idx);
+    row.innerHTML=`
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.5"><rect x="2" y="1" width="10" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span style="flex:1;font-size:12px;color:var(--k)">${f.name.replace('.pdf','')}</span>
+      <a href="${url}" download="${f.name}" onclick="event.stopPropagation()"
+         style="background:var(--k);color:#fff;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;flex-shrink:0">↓ PDF</a>`;
+    dl&&dl.appendChild(row);
+    if(i===0) selectPlano(idx);
+  });
+}
 
 </script>
 </body>
