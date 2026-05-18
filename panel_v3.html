@@ -926,10 +926,22 @@ function load3D(input){
   if(canvas){canvas.style.display='block';document.querySelector('.v3d-ph')&&(document.querySelector('.v3d-ph').style.display='none');initViewer(canvas,url);}
 }
 function loadGitHubModel(){
-  const canvas=document.getElementById('v3d-canvas');
-  if(!canvas)return;
-  fetch(CONFIG.modelGLB,{method:'HEAD'})
-    .then(r=>{if(r.ok){canvas.style.display='block';const ph=document.querySelector('.v3d-ph');if(ph)ph.style.display='none';initViewer(canvas,CONFIG.modelGLB);}else{console.log('No modelo.glb in GitHub');}})    .catch(()=>console.log('modelo.glb not found yet'));
+  // Use GitHub API to find any .glb file in the repo
+  fetch('https://api.github.com/repos/paganidaia/panel-obra/contents/')
+    .then(r=>r.json())
+    .then(files=>{
+      const glb = files.find(f=>f.name.toLowerCase().endsWith('.glb'));
+      if(!glb){ console.log('No GLB found in repo'); return; }
+      const rawUrl = glb.download_url;
+      console.log('Found GLB:', glb.name, rawUrl);
+      const canvas=document.getElementById('v3d-canvas');
+      if(!canvas)return;
+      canvas.style.display='block';
+      const ph=document.querySelector('.v3d-ph');
+      if(ph)ph.style.display='none';
+      initViewer(canvas, rawUrl);
+    })
+    .catch(err=>console.warn('GitHub API error:',err));
 }
 function reset3D(){if(v3dCtx&&v3dCtx.reset)v3dCtx.reset();}
 function initViewer(canvas,url){
