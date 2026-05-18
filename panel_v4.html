@@ -772,11 +772,13 @@ function reset3D(){if(v3dCtx){v3dCtx.rotTarget.x=0;v3dCtx.rotTarget.y=0;v3dCtx.z
 // ══════════════════════════════════════════════════════
 // PANEL v4 — integración Sheet + Drive + GitHub
 // ══════════════════════════════════════════════════════
-const SHEET_CSV  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=csv';
-const DRIVE_API  = 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec';
-const GITHUB_API = 'https://api.github.com/repos/paganidaia/panel-obra/contents/';
-const SHEET_XLS  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=xlsx';
-const SHEET_VIEW = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pubhtml';
+const CONFIG_CSV  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=csv';
+const RESUMEN_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?gid=696814024&single=true&output=csv';
+const MEMORIA_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?gid=165295350&single=true&output=csv';
+const DRIVE_API   = 'https://script.google.com/macros/s/AKfycbyWLwIhiY9Njxlm9jTLgJ1145uEqRLrj2lKULTuOJaWxKddYxWjt-orfFBzhePOg0Vgfg/exec';
+const GITHUB_API  = 'https://api.github.com/repos/paganidaia/panel-obra/contents/';
+const SHEET_XLS   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pub?output=xlsx';
+const SHEET_VIEW  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOQ2vaj2oCqj0HIHHK94T7KEzo6ACBFd0Z6UJ-ULdyCDTmsjiowxBgWXrhrUnoB3G5zfJJpdAFVXuv/pubhtml';
 
 // ── CSV helpers ───────────────────────────────────────
 function parseCSV(t){
@@ -798,35 +800,70 @@ function loadSheetData(){
   const btn=document.getElementById('refresh-btn');
   const ind=document.getElementById('sheet-status');
   if(btn)btn.style.opacity='0.5';
-  fetch(SHEET_CSV).then(r=>r.text()).then(csv=>{
-    const rows=parseCSV(csv);
-    // Portada
-    setTxt('cv-proyecto', cc(rows,5,3));
-    setTxt('cv-tipo',     cc(rows,11,3));
-    const loc = cc(rows,8,3)+(cc(rows,9,3)?' · '+cc(rows,9,3):'');
-    setTxt('cv-ubicacion', loc);
-    setTxt('cv-cliente-v', cc(rows,6,3));
-    setTxt('cv-rep-v',     cc(rows,7,3)||'—');
-    setTxt('cv-prof-v',    cc(rows,14,3));
-    setTxt('cv-mat-v',     cc(rows,15,3));
-    setTxt('cv-sup-v',     cc(rows,10,3)?cc(rows,10,3)+' m²':'—');
-    setTxt('cv-badge',     cc(rows,12,3));
-    setTxt('cv-fecha-v',   cc(rows,13,3));
-    // Memoria — leer de MEMORIA hoja (CSV hoja 3 via &gid=)
-    // Usamos descripcion de CONFIG por ahora
-    const descEl = document.getElementById('mem-descripcion');
-    if(descEl && cc(rows,5,3)) descEl.textContent = cc(rows,5,3)+' — '+cc(rows,11,3);
-    // Presupuesto — K15=total adj, L15=% vs menor
-    const totalAdj = cc(rows,15,11); // K15 en RESUMEN sheet
-    const pctAdj   = cc(rows,15,12); // L15
+
+  // Load all 3 sheets in parallel
+  Promise.all([
+    fetch(CONFIG_CSV).then(r=>r.text()),
+    fetch(RESUMEN_CSV).then(r=>r.text()),
+    fetch(MEMORIA_CSV).then(r=>r.text()),
+  ]).then(([configCsv, resumenCsv, memoriaCsv])=>{
+    const cfg = parseCSV(configCsv);
+    const res = parseCSV(resumenCsv);
+    const mem = parseCSV(memoriaCsv);
+
+    // ── PORTADA — de CONFIG ───────────────────────────
+    setTxt('cv-proyecto', cc(cfg,5,3));
+    setTxt('cv-tipo',     cc(cfg,11,3));
+    setTxt('cv-ubicacion', cc(cfg,8,3)+(cc(cfg,9,3)?' · '+cc(cfg,9,3):''));
+    setTxt('cv-cliente-v', cc(cfg,6,3));
+    setTxt('cv-rep-v',     cc(cfg,7,3)||'—');
+    setTxt('cv-prof-v',    cc(cfg,14,3));
+    setTxt('cv-mat-v',     cc(cfg,15,3));
+    setTxt('cv-sup-v',     cc(cfg,10,3)?cc(cfg,10,3)+' m²':'—');
+    setTxt('cv-badge',     cc(cfg,12,3));
+    setTxt('cv-fecha-v',   cc(cfg,13,3));
+
+    // ── MEMORIA — leer secciones ──────────────────────
+    // Buscar "INTRODUCCIÓN / OBJETO DE LA LICITACIÓN" en col A
+    let desc1='', desc2='';
+    for(let i=0;i<mem.length;i++){
+      const a=mem[i][0]||'';
+      if(a.toUpperCase().includes('INTRODUCCIÓN / OBJETO')){
+        // Next non-empty rows = content
+        for(let j=i+1;j<Math.min(i+6,mem.length);j++){
+          const t=(mem[j][0]||'').trim();
+          if(t&&!t.startsWith('Describir')) desc1+=(desc1?'
+':'')+t;
+        }
+      }
+      if(a.toUpperCase().includes('INTRODUCCIÓN — TEXTO PORTADA')){
+        for(let j=i+1;j<Math.min(i+5,mem.length);j++){
+          const t=(mem[j][0]||'').trim();
+          if(t&&!t.startsWith('Texto introductorio')) desc2+=(desc2?'
+':'')+t;
+        }
+      }
+    }
+    const descEl=document.getElementById('mem-descripcion');
+    if(descEl&&desc1) descEl.textContent=desc1;
+    const introEl=document.getElementById('mem-intro');
+    if(introEl&&desc2) introEl.textContent=desc2;
+
+    // ── PRESUPUESTO — de RESUMEN fila 15 ─────────────
+    // RESUMEN: fila 15 = totales, col K=11=montoAdj, col L=12=pct
+    const totalAdj = cc(res,15,11);
+    const pctAdj   = cc(res,15,12);
     if(totalAdj){
-      const n=Number(totalAdj.replace(/[^0-9.-]/g,''));
+      const n=Number(String(totalAdj).replace(/[^0-9.-]/g,''));
       if(n>0) setTxt('pres-total','$'+n.toLocaleString('es-AR',{maximumFractionDigits:0}));
     }
-    if(pctAdj) setTxt('pres-pct', pctAdj);
-    // Sheet links
+    if(pctAdj){
+      const p=Number(String(pctAdj).replace(/[^0-9.-]/g,''));
+      if(!isNaN(p)) setTxt('pres-pct',(p>=0?'+':'')+(p*100).toFixed(1)+'%');
+    }
     const xlLink=document.getElementById('pres-xl-link');
     if(xlLink) xlLink.href=SHEET_XLS;
+
     if(btn)btn.style.opacity='1';
     if(ind){ind.textContent='✓ OK';setTimeout(()=>ind.textContent='Actualizar',2500);}
   }).catch(err=>{
